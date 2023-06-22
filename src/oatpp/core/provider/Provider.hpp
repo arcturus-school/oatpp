@@ -151,7 +151,6 @@ struct WeakResourceHandle : public ResourceHandleTemplate<T, std::weak_ptr<T>> {
 };
 
 /**
- * 策略模式
  * Abstract resource provider.
  * @tparam T - resource class.
  */
