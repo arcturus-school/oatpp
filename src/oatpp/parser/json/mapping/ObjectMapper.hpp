@@ -33,6 +33,7 @@
 namespace oatpp { namespace parser { namespace json { namespace mapping {
 
 /**
+ * 序列化/反序列化 DTO 对象
  * Json ObjectMapper. Serialized/Deserializes oatpp DTO objects to/from JSON.
  * See [Data Transfer Object(DTO) component](https://oatpp.io/docs/components/dto/). <br>
  * Extends &id:oatpp::base::Countable;, &id:oatpp::data::mapping::ObjectMapper;.
@@ -63,7 +64,7 @@ public:
   ObjectMapper(const std::shared_ptr<Serializer>& serializer = std::make_shared<Serializer>(),
                const std::shared_ptr<Deserializer>& deserializer = std::make_shared<Deserializer>());
 public:
-
+  // 工厂模式
   /**
    * Create shared ObjectMapper.
    * @param serializerConfig - &id:oatpp::parser::json::mapping::Serializer::Config;.

@@ -30,6 +30,7 @@
 namespace oatpp { namespace parser { namespace json {
 
 /**
+ * JSON 输出美化
  * JSON output stream beautifier.
  */
 class Beautifier : public oatpp::data::stream::ConsistentOutputStream {
@@ -38,14 +39,14 @@ public:
   typedef oatpp::data::stream::IOMode IOMode;
   typedef oatpp::data::stream::Context Context;
 private:
-  ConsistentOutputStream* m_outputStream;
-  oatpp::String m_indent;
-  oatpp::String m_newLine;
+  ConsistentOutputStream* m_outputStream; // 输出缓冲区
+  oatpp::String m_indent; // 缩进字符
+  oatpp::String m_newLine; // 换行符
 private:
-  v_int32 m_level;
-  bool m_wantIndent;
-  bool m_isCharEscaped;
-  bool m_isInString;
+  v_int32 m_level; // JSON 层级
+  bool m_wantIndent; // 是否需要缩进
+  bool m_isCharEscaped; // 是否需要转义
+  bool m_isInString; // 解析的是字符串
 private:
   void writeIndent(ConsistentOutputStream* outputStream);
 public:

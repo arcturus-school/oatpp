@@ -55,7 +55,7 @@ public:
     Config()
     {}
   public:
-
+    // 工厂模式
     /**
      * Create shared config.
      * @return - `std::shared_ptr` to Config.
@@ -174,7 +174,7 @@ public:
    * @param config - serializer config.
    */
   Serializer(const std::shared_ptr<Config>& config = std::make_shared<Config>());
-
+  // 策略模式
   /**
    * Set serializer method for type.
    * @param classId - &id:oatpp::data::mapping::type::ClassId;.

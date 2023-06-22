@@ -33,6 +33,7 @@
 namespace oatpp { namespace parser { namespace json {
 
 /**
+ * 序列化/反序列化
  * Utility class for json serializer/deserializer.
  * Used by &id:oatpp::parser::json::mapping::Serializer;, &id:oatpp::parser::json::mapping::Deserializer;.
  */
@@ -79,6 +80,7 @@ private:
 public:
 
   /**
+   * 对字符串进行转义
    * Escape string as for json standard. <br>
    * *Note:* if(copyAsOwnData == false && escapedString == initialString) then result string will point to initial data.
    * @param data - pointer to string to escape.

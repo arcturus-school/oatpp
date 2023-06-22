@@ -34,6 +34,7 @@
 namespace oatpp { namespace parser { namespace json { namespace mapping {
 
 /**
+ * Json 序列化
  * Json Deserializer.
  * Deserialize oatpp DTO object from json. See [Data Transfer Object(DTO) component](https://oatpp.io/docs/components/dto/).
  */
@@ -48,8 +49,8 @@ public:
 public:
 
   /**
- * "'{' - expected"
- */
+  * "'{' - expected"
+  */
   static constexpr v_int32 ERROR_CODE_OBJECT_SCOPE_OPEN = 1;
 
   /**
@@ -95,7 +96,7 @@ public:
     Config()
     {}
   public:
-
+    // 工厂模式
     /**
      * Create shared Config.
      * @return - `std::shared_ptr` to Config.
@@ -105,6 +106,7 @@ public:
     }
 
     /**
+     * 是否允许 unkonwn 字段
      * Do not fail if unknown field is found in json.
      * "unknown field" is the one which is not present in DTO object class.
      */
@@ -185,7 +187,7 @@ public:
    * @param config
    */
   Deserializer(const std::shared_ptr<Config>& config = std::make_shared<Config>());
-
+  // 策略模式
   /**
    * Set deserializer method for type.
    * @param classId - &id:oatpp::data::mapping::type::ClassId;.

@@ -63,9 +63,9 @@ v_io_size Beautifier::write(const void *data, v_buff_size count, async::Action& 
 
     if(m_isInString) {
       if(c == '\\') {
-        m_isCharEscaped = true;
+        m_isCharEscaped = true; // 遇到 \\ 后将后面的字符进行转义
       } else if(c == '"') {
-        m_isInString = false;
+        m_isInString = false; // 遇到 " 后停止字符串解析
       }
       buffer.writeCharSimple(c);
       continue;
