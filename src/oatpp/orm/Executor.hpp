@@ -116,6 +116,7 @@ public:
                                                const provider::ResourceHandle<Connection>& connection = nullptr);
 
   /**
+   * 开始事务
    * Begin database transaction. Should NOT be used directly. Use &id:oatpp::orm::Transaction; instead.
    * @param connection - database connection.
    * @return - &id:oatpp::orm::QueryResult;.
@@ -123,6 +124,7 @@ public:
   virtual std::shared_ptr<QueryResult> begin(const provider::ResourceHandle<Connection>& connection = nullptr) = 0;
 
   /**
+   * 提交事务
    * Commit database transaction. Should NOT be used directly. Use &id:oatpp::orm::Transaction; instead.
    * @param connection
    * @return - &id:oatpp::orm::QueryResult;.
@@ -130,6 +132,7 @@ public:
   virtual std::shared_ptr<QueryResult> commit(const provider::ResourceHandle<Connection>& connection) = 0;
 
   /**
+   * 回滚事务
    * Rollback database transaction. Should NOT be used directly. Use &id:oatpp::orm::Transaction; instead.
    * @param connection
    * @return - &id:oatpp::orm::QueryResult;.
@@ -137,6 +140,7 @@ public:
   virtual std::shared_ptr<QueryResult> rollback(const provider::ResourceHandle<Connection>& connection) = 0;
 
   /**
+   * 获取当前数据库架构版本
    * Get current database schema version.
    * @param suffix - suffix of schema version control table name.
    * @param connection - database connection.

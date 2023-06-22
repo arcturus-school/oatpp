@@ -30,6 +30,7 @@
 namespace oatpp { namespace orm {
 
 /**
+ * 数据库架构迁移工具
  * Database schema migration helper.
  */
 class SchemaMigration {
@@ -63,6 +64,7 @@ public:
   virtual ~SchemaMigration() = default;
 
   /**
+   * 以文本形式添加迁移脚本
    * Add migration script as text.
    * @param version - schema version corresponding to this script.
    * @param script - script text.
@@ -70,6 +72,7 @@ public:
   void addText(v_int64 version, const oatpp::String& script);
 
   /**
+   * 添加迁移脚本文件
    * Add migration script file.
    * @param version - schema version corresponding to this script.
    * @param script - path to script file.
@@ -77,6 +80,7 @@ public:
   void addFile(v_int64 version, const oatpp::String& filename);
 
   /**
+   * 运行数据库模式迁移
    * Run database schema migration.
    */
   void migrate();
@@ -90,5 +94,22 @@ public:
 };
 
 }}
+
+/**
+class MyClient : public oatpp::orm::DbClient {
+public:
+
+  MyClient(const std::shared_ptr<oatpp::orm::Executor>& executor)
+    : oatpp::orm::DbClient(executor)
+  {
+    oatpp::orm::SchemaMigration migration(executor); 
+    migration.addFile(1, "sql/initial_schema.sql");
+    migration.addFile(2, "sql/schema_fix_1.sql"  );
+    ...
+    migration.migrate(); // <-- This guy will throw on error.
+  }
+  ...    
+};
+*/
 
 #endif // oatpp_orm_SchemaMigration_hpp

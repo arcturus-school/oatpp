@@ -43,18 +43,21 @@ public:
   virtual ~QueryResult() = default;
 
   /**
+   * 获取与此结果相关联的数据库连接
    * Get DB connection associated with this result.
    * @return
    */
   virtual provider::ResourceHandle<Connection> getConnection() const = 0;
 
   /**
+   * 检查查询是否成功
    * Check if the query was successful.
    * @return
    */
   virtual bool isSuccess() const = 0;
 
   /**
+   * 在 isSuccess() == false 的情况下获取错误信息
    * Get error message in case `isSuccess() == false`
    * @return
    */
@@ -87,6 +90,7 @@ public:
   virtual oatpp::Void fetch(const oatpp::Type* const resultType, v_int64 count) = 0;
 
   /**
+   * 获取结果条目
    * Fetch result entries.
    * @tparam Wrapper - output type.
    * @param count - how many entries to fetch. Use `-1` to fetch all.

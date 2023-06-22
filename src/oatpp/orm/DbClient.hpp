@@ -61,6 +61,7 @@ public:
   provider::ResourceHandle<Connection> getConnection();
 
   /**
+   * 设置类型解释器
    * Set enabled type interpretations.
    * @param enabledInterpretations
    */
@@ -97,6 +98,7 @@ public:
                                        const provider::ResourceHandle<Connection>& connection = nullptr);
 
   /**
+   * 执行查询(client.executeQuery("SELECT * FROM users;", {})
    * Execute arbitrary query.
    * @param query - query text.
    * @param params - query parameters.
@@ -108,6 +110,7 @@ public:
                                             const provider::ResourceHandle<Connection>& connection = nullptr);
 
   /**
+   * 数据库事务
    * Begin database transaction.
    * @param connection - database connection.
    * @return - &id:oatpp::orm::Transaction;.
