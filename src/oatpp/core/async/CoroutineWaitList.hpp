@@ -50,6 +50,7 @@ public:
     virtual ~Listener() = default;
 
     /**
+     * 当新项目被推送到列表时调用
      * Called when new item is pushed to the list.
      * @param list - list where new item was pushed to.
      */
@@ -111,6 +112,7 @@ public:
   void notifyFirst();
 
   /**
+   * 将所有协程放回其处理器并清除等待列表
    * Put all coroutines back to its processors and clear wait-list.
    */
   void notifyAll();

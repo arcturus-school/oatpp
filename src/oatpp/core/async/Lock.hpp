@@ -30,13 +30,14 @@
 namespace oatpp { namespace async {
 
 /**
+ * 用于协程/线程同步的锁
  * Lock (mutex) for coroutines/threads synchronization. <br>
  * - When called from a thread - must be used with `std::lock_guard`.
  * - When called from coroutine - must be used with &l:LockGuard;.
  */
 class Lock : private CoroutineWaitList::Listener {
 private:
-  std::atomic<v_int32> m_counter;
+  std::atomic<v_int32> m_counter; // 锁计数器
   std::mutex m_mutex;
   CoroutineWaitList m_list;
 private:
@@ -49,6 +50,7 @@ public:
   Lock();
 
   /**
+   * 等到锁被解锁, 然后重复
    * Wait until lock is unlocked, and repeat.
    * @return - &id:oatpp::async::Action;.
    */
@@ -134,12 +136,14 @@ public:
   Action lockAsyncInline(oatpp::async::Action&& nextAction);
 
   /**
+   * 检查是否拥有锁
    * Check if owns lock.
    * @return
    */
   bool owns_lock() const;
 
   /**
+   * 解锁受保护的锁
    * Unlock guarded lock.
    */
   void unlock();
@@ -147,6 +151,7 @@ public:
 };
 
 /**
+ * 通过锁同步协程执行
  * Synchronize coroutine execution by lock.
  * @param lock - &l:Lock; for synchronization.
  * @param starter - Coroutine to execute in synchronized manner. &id:oatpp::async::CoroutineStarter;.

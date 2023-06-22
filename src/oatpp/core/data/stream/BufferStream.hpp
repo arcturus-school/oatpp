@@ -86,6 +86,7 @@ public:
   Context& getOutputStreamContext() override;
 
   /**
+   * 内存扩展(为将来写操作预留足够空间)
    * Reserve bytes for future writes.
    */
   void reserveBytesUpfront(v_buff_size count);

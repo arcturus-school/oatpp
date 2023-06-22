@@ -31,6 +31,7 @@
 namespace oatpp { namespace async {
 
 /**
+ * 用于在协程之间保存和传达错误的类
  * Class to hold and communicate errors between Coroutines
  */
 class Error : public std::runtime_error, public oatpp::base::Countable {
@@ -43,6 +44,7 @@ public:
   explicit Error(const std::string& what);
 
   /**
+   * 检测当前 error 是否属于某个派生类
    * Check if error belongs to specified class.
    * @tparam ErrorClass
    * @return - `true` if error is of specified class

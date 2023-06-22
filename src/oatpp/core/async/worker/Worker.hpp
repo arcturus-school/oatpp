@@ -43,16 +43,19 @@ public:
   enum Type : v_int32 {
 
     /**
+     * 通用处理器
      * Worker type - general processor.
      */
     PROCESSOR = 0,
 
     /**
+     * 计时器处理器
      * Worker type - timer processor.
      */
     TIMER = 1,
 
     /**
+     * I/O 处理器
      * Worker type - I/O processor.
      */
     IO = 2,

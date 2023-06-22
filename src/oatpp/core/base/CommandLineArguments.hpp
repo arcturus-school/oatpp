@@ -30,6 +30,7 @@
 namespace oatpp { namespace base {
 
 /**
+ * 用于存储和管理命令行参数
  * Class for storing and managing Command Line arguments.
  */
 class CommandLineArguments {
@@ -109,6 +110,7 @@ public:
   CommandLineArguments(int argc, const char * argv[]);
 
   /**
+   * 判断参数是否存在
    * Check the specified argument is present.
    * @param argName - name of the target argument.
    * @return - `true` if present.
@@ -118,6 +120,7 @@ public:
   }
 
   /**
+   * 获取参数所在位置
    * Get index of the argument specified by name.
    * @param argName - name of the target argument.
    * @return - index of the argument in argv[] array. -1 if there is no such argument.
@@ -127,6 +130,7 @@ public:
   }
 
   /**
+   * 获取某个前缀的参数值
    * Get argument which starts with the prefix. <br>
    * Example: <br>
    * For command line: `-k -c 1000 -n 100 'http://127.0.0.1:8000/'` <br>
@@ -140,6 +144,7 @@ public:
   }
 
   /**
+   * 获取某个参数名后面的参数值
    * Get value preceded by the argument. <br>
    * Example: <br>
    * For command line: `-k -c 1000 -n 100` <br>

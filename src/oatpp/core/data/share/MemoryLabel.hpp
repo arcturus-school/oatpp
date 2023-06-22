@@ -42,9 +42,9 @@ class MemoryLabel {
 public:
   typedef oatpp::data::mapping::type::String String;
 protected:
-  mutable std::shared_ptr<std::string> m_memoryHandle;
-  mutable const void* m_data;
-  v_buff_size m_size;
+  mutable std::shared_ptr<std::string> m_memoryHandle; // 内存地址
+  mutable const void* m_data; // label 数据
+  v_buff_size m_size; // label 大小
 public:
 
   /**
@@ -110,6 +110,7 @@ public:
   }
 
   /**
+   * 更新句柄所指数据到自己的内存地址上
    * Capture data referenced by memory label to its own memory.
    */
   void captureToOwnMemory() const {
@@ -120,6 +121,7 @@ public:
   }
 
   /**
+   * 检查标记的数据是否等于指定的数据
    * Check if labeled data equals to data specified.
    * Data is compared using &id:oatpp::urils::String::compare;.
    * @param data - data to compare with labeled data.
@@ -150,6 +152,7 @@ public:
   }
 
   /**
+   * 从内存标签生成 std::string
    * Create std::string from memory label
    * @return std::string(data, size)
    */
@@ -172,6 +175,7 @@ public:
 };
 
 /**
+ * 可用作 unordered_map 的 key 的内存标签
  * MemoryLabel which can be used as a key in unordered_map
  */
 class StringKeyLabel : public MemoryLabel {
@@ -236,6 +240,7 @@ public:
 };
 
 /**
+ * 可用作 unordered_map 的不区分大小写的 key 的内存标签
  * MemoryLabel which can be used as a case-insensitive key in unordered_map
  */
 class StringKeyLabelCI : public MemoryLabel {
@@ -299,7 +304,7 @@ public:
 }}}
 
 namespace std {
-  
+  // 全特化
   template<>
   struct hash<oatpp::data::share::StringKeyLabel> {
     

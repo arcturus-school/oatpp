@@ -60,11 +60,13 @@ struct ResourceHandleTemplate {
   {}
 
   /**
+   * 指向资源的指针
    * Pointer to the resource.
    */
   PTR object;
 
   /**
+   * 使资源无效的失效器
    * Invalidator that can be used to invalidate the resource.
    */
   std::shared_ptr<Invalidator<T>> invalidator;
@@ -149,6 +151,7 @@ struct WeakResourceHandle : public ResourceHandleTemplate<T, std::weak_ptr<T>> {
 };
 
 /**
+ * 策略模式
  * Abstract resource provider.
  * @tparam T - resource class.
  */

@@ -36,6 +36,7 @@ class TypeResolver {
 public:
 
   /**
+   * 使用局部解析缓存来减少类型解释迭代的次数(key-value)
    * Local resolution cache used to reduce number of type interpretation iterations.
    */
   struct Cache {
@@ -78,6 +79,7 @@ public:
   virtual ~TypeResolver() = default;
 
   /**
+   * 设置类型类为已知或未知
    * Set if the type class is considered known/unknown
    * @param classId
    * @param isKnown
@@ -85,12 +87,14 @@ public:
   void setKnownClass(const type::ClassId& classId, bool isKnown);
 
   /**
+   * 添加所有提到的类型类为已知
    * Set all mentioned type classes as known.
    * @param knownClasses
    */
   void addKnownClasses(const std::vector<type::ClassId>& knownClasses);
 
   /**
+   * 检查类型 class 是否已知
    * Check if type class is known.
    * @param classId
    * @return
@@ -98,6 +102,7 @@ public:
   bool isKnownClass(const type::ClassId& classId) const;
 
   /**
+   * 检查类型是否已知
    * Check if type is known.
    * @param type
    * @return
@@ -105,6 +110,7 @@ public:
   bool isKnownType(const type::Type* type) const;
 
   /**
+   * 设置 enabled type 解释
    * Set enabled type interpretations.
    * @param interpretations
    */
@@ -117,6 +123,7 @@ public:
   const std::vector<std::string>& getEnabledInterpretations() const;
 
   /**
+   * 根据启用的解释解析未知类型
    * Resolve unknown type according to enabled interpretations.
    * @param type - type to resolve.
    * @param cache - local cache.
@@ -125,6 +132,7 @@ public:
   const type::Type* resolveType(const type::Type* type, Cache& cache) const;
 
   /**
+   * 根据启用的解释解析未知值
    * Resolve unknown value according to enabled interpretations.
    * @param value - value to resolve.
    * @param cache - local cache.
@@ -133,6 +141,7 @@ public:
   type::Void resolveValue(const type::Void& value, Cache& cache) const;
 
   /**
+   * 遍历对象属性树, 根据启用的解释解析未知类型
    * Traverse object property tree resolving unknown types according to enabled interpretations.
    * @param objectType - base object type.
    * @param path - vector of property names.
@@ -144,6 +153,7 @@ public:
                                               Cache& cache) const;
 
   /**
+   * 遍历对象属性树, 根据启用的解释解析未知值类型
    * Traverse object property tree resolving unknown value types according to enabled interpretations.
    * @param object - base object.
    * @param path - vector of property names.

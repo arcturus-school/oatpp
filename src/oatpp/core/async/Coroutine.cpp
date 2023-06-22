@@ -31,7 +31,7 @@ namespace oatpp { namespace async {
 // Action
 
 const std::chrono::system_clock::time_point Action::TIME_ZERO = std::chrono::system_clock::from_time_t(0);
-
+// 浅拷贝
 Action Action::clone(const Action& action) {
   Action result(action.m_type);
   result.m_data = action.m_data;
@@ -245,7 +245,7 @@ CoroutineHandle::~CoroutineHandle() {
 
 Action CoroutineHandle::takeAction(Action&& action) {
 
-  //v_int32 iterations = 0;
+  // v_int32 iterations = 0;
 
   while (true) {
 
@@ -273,17 +273,17 @@ Action CoroutineHandle::takeAction(Action&& action) {
 
       case Action::TYPE_YIELD_TO: {
         _FP = action.m_data.fptr;
-        //break;
+        // break;
         return std::forward<oatpp::async::Action>(action);
       }
 
-//      case Action::TYPE_REPEAT: {
-//        break;
-//      }
-//
-//      case Action::TYPE_IO_REPEAT: {
-//        break;
-//      }
+    //  case Action::TYPE_REPEAT: {
+    //    break;
+    //  }
+
+    //  case Action::TYPE_IO_REPEAT: {
+    //    break;
+    //  }
 
       case Action::TYPE_ERROR: {
         Action newAction = _CP->handleError(action.m_data.error);
@@ -314,8 +314,8 @@ Action CoroutineHandle::takeAction(Action&& action) {
 
     };
 
-//    action = iterate();
-//    ++ iterations;
+  //  action = iterate();
+  //  ++ iterations;
 
   }
 

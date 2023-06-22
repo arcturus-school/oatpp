@@ -30,12 +30,14 @@
 namespace oatpp { namespace utils {
 
 /**
+ * 二进制操作和算术方法的集合
  * Collection of methods for binary operations and arithmetics.
  */
 class Binary {
 public:
 
   /**
+   * 计算最近的 2 的次幂
    * Calculate the next power of 2. <br>
    * Example: <br>
    * `nextP2(127) = 128`, `nextP2(1025) = 2048`.

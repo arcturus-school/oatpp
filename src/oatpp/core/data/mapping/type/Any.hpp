@@ -122,6 +122,7 @@ public:
   const Type* getStoredType() const;
 
   /**
+   * 检索类型为 type 的存储对象
    * Retrieve stored object of type `type`.
    * @param type - &id:oatpp::Type;
    * @return - &id:oatpp::Void;.

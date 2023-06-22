@@ -54,7 +54,7 @@ void Processor::popIOTask(CoroutineHandle* coroutine) {
   if(m_ioPopQueues.size() > 0) {
     auto &queue = m_ioPopQueues[(++m_ioBalancer) % m_ioPopQueues.size()];
     queue.pushBack(coroutine);
-    //m_ioWorkers[(++m_ioBalancer) % m_ioWorkers.size()]->pushOneTask(coroutine);
+    // m_ioWorkers[(++m_ioBalancer) % m_ioWorkers.size()]->pushOneTask(coroutine);
   } else {
     throw std::runtime_error("[oatpp::async::Processor::popIOTasks()]: Error. Processor has no I/O workers.");
   }
@@ -173,7 +173,7 @@ void Processor::pushQueues() {
   }
 
 }
-
+// 使协程睡眠
 void Processor::putCoroutineToSleep(CoroutineHandle* ch) {
   if(ch->_SCH_A.m_data.waitListData.timePointMicroseconds == 0) {
     std::lock_guard<std::mutex> lock(m_sleepMutex);
@@ -184,7 +184,7 @@ void Processor::putCoroutineToSleep(CoroutineHandle* ch) {
     m_sleepCV.notify_one();
   }
 }
-
+// 唤醒协程
 void Processor::wakeCoroutine(CoroutineHandle* ch) {
   if(ch->_SCH_A.m_data.waitListData.timePointMicroseconds == 0) {
     std::lock_guard<std::mutex> lock(m_sleepMutex);
@@ -204,11 +204,12 @@ void Processor::checkCoroutinesSleep() {
       while (m_running && m_sleepTimeSet.empty()) {
         m_sleepCV.wait(lock);
       }
-
+      // 当前时间戳
       auto now = oatpp::base::Environment::getMicroTickCount();
+      // 遍历 m_sleepTimeSet 中的协程
       for(auto it = m_sleepTimeSet.begin(); it != m_sleepTimeSet.end();) {
         auto ch = *it;
-        if(ch->_SCH_A.m_data.waitListData.timePointMicroseconds < now) {
+        if(ch->_SCH_A.m_data.waitListData.timePointMicroseconds < now) { // 协程睡眠时间已过
           it = m_sleepTimeSet.erase(it);
           ch->_SCH_A.m_data.waitListData.waitList->forgetCoroutine(ch);
           ch->_SCH_A = Action::createActionByType(Action::TYPE_NONE);
@@ -219,7 +220,7 @@ void Processor::checkCoroutinesSleep() {
       }
 
     }
-
+    // 每执行完后睡眠 100ms
     if(m_running) std::this_thread::sleep_for(std::chrono::milliseconds{100});
   }
 }
@@ -285,7 +286,7 @@ void Processor::stop() {
   m_taskCondition.notify_one();
   m_sleepCV.notify_one();
 
-  m_sleepSetTask.join();
+  m_sleepSetTask.join(); // 暂停睡眠协程检测(checkCoroutinesSleep)
 
 }
 

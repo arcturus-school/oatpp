@@ -38,6 +38,7 @@
 namespace oatpp { namespace async {
 
 /**
+ * 异步执行器
  * Asynchronous Executor.<br>
  * Executes coroutines in multiple &id:oatpp::async::Processor;
  * allocating one thread per processor.
@@ -152,12 +153,14 @@ public:
   }
 
   /**
+   * 获取所有未完成的任务的数量
    * Get number of all not finished tasks.
    * @return - number of all not finished tasks.
    */
   v_int32 getTasksCount();
 
   /**
+   * 等待所有任务完成
    * Wait until all tasks are finished.
    * @param timeout
    */

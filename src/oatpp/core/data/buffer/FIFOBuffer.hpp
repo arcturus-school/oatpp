@@ -68,12 +68,14 @@ public:
   void setBufferPosition(v_buff_size readPosition, v_buff_size writePosition, bool canRead);
 
   /**
+   * 当前缓冲区可读大小
    * Amount of bytes currently available to read from buffer.
    * @return &id:oatpp::v_io_size;.
    */
   v_io_size availableToRead() const;
 
   /**
+   * 当前缓冲区可写大小
    * Amount of buffer space currently available for data writes.
    * @return &id:oatpp::v_io_size;.
    */
@@ -86,6 +88,7 @@ public:
   v_buff_size getBufferSize() const;
 
   /**
+   * 读取缓冲区 count 字节的数据
    * read up to count bytes from the buffer to data
    * @param data
    * @param count
@@ -94,6 +97,7 @@ public:
   v_io_size read(void *data, v_buff_size count);
 
   /**
+   * 查看缓冲区 count 字节的数据
    * Peek up to count of bytes int he buffer
    * @param data
    * @param count
@@ -102,6 +106,7 @@ public:
   v_io_size peek(void *data, v_buff_size count);
 
   /**
+   * 读偏移量
    * Commit read offset
    * @param count
    * @return [1..count], IOErrors.
@@ -152,6 +157,7 @@ public:
 };
 
 /**
+ * 使用自旋锁实现同步缓冲区
  * Same as FIFOBuffer + synchronization with SpinLock
  */
 class SynchronizedFIFOBuffer {

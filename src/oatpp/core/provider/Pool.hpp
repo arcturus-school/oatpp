@@ -38,6 +38,7 @@ template<class TResource, class AcquisitionProxyImpl>
 class PoolTemplate; // FWD
 
 /**
+ * 资源池获取代理
  * Pool acquisition proxy template.
  * @tparam TResource - abstract resource interface type, Ex.: `IOStream`.
  * @tparam AcquisitionProxyImpl - implementation of proxy.

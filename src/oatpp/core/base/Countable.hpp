@@ -31,7 +31,7 @@
 namespace oatpp { namespace base{
 
 /**
- * Class instantiations of which can be counted.
+ * Class instantiations of which can be counted.(可计数的类)
  */
 class Countable {
 public:

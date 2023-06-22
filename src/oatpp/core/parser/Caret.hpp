@@ -30,6 +30,7 @@
 namespace oatpp { namespace parser {
 
 /**
+ * 进行解析操作的辅助类
  * Helper class to do parsing operations
  */
 class Caret {
@@ -43,6 +44,7 @@ public:
 public:
 
   /**
+   * 解析数据的标签
    * Class to label parsing data.
    */
   class Label {
@@ -59,16 +61,19 @@ public:
     Label(Caret* caret);
 
     /**
+     * 将当前插入位置设置为标签的起始点
      * Set current caret position as a starting point for label.
      */
     void start();
 
     /**
+     * 将当前插入符位置固定为标签的终点
      * Fix current caret position as an end point for label.
      */
     void end();
 
     /**
+     * 获取指向标记数据的指针
      * Get pointer to a labeled data.
      * @return
      */
@@ -162,7 +167,7 @@ public:
   Caret(const char* parseData, v_buff_size dataSize);
   Caret(const oatpp::String& str);
 public:
-  
+  // 工厂方法模式
   static std::shared_ptr<Caret> createShared(const char* text);
   static std::shared_ptr<Caret> createShared(const char* parseData, v_buff_size dataSize);
   static std::shared_ptr<Caret> createShared(const oatpp::String& str);
@@ -170,6 +175,7 @@ public:
   virtual ~Caret();
 
   /**
+   * 获取指向数据的指针, 传递给 Caret 构造函数
    * Get pointer to a data, passed to Caret constructor
    * @return
    */
@@ -254,12 +260,14 @@ public:
   void inc(v_buff_size amount);
 
   /**
+   * 跳过空白符, 当存在非空白字符是返回 true
    * Skip chars: [' ', '\t', '\n', '\r','\f']
    * @return true if other char found
    */
   bool skipBlankChars();
 
   /**
+   * 跳过指定字符
    * Skip char
    * @param c
    * @return true if other char found
@@ -275,6 +283,7 @@ public:
   bool findChar(char c);
 
   /**
+   * 跳过字符串 set 内的所有字符
    * Skip chars defined by set.
    * ex. skipCharsFromSet("abc") - will skip all 'a', 'b', 'c' chars
    * @param set
@@ -307,32 +316,33 @@ public:
   v_buff_size findCharFromSet(const char* set, v_buff_size setSize);
 
   /**
-   * Find "\r\n" chars
+   * 查找 "\\r\\n"
+   * Find "\\r\\n" chars
    * @return true if found
    */
   bool findRN();
 
   /**
-   * Skip "\r\n"
+   * Skip "\\r\\n"
    * @return True if position changes. False if caret not at "\r\n"
    */
   bool skipRN();
 
   /**
-   * Check if caret at "\r\n" chars
+   * Check if caret at "\\r\\n" chars
    * @return
    */
   bool isAtRN();
 
   /**
-   * Find '\r' char of '\n' char
-   * @return true if found '\r' or '\n'
+   * Find '\\r' char of '\\n' char
+   * @return true if found '\\r' or '\\n'
    */
   bool findROrN();
 
   /**
-   * if at "\r\n" - skip.
-   * if at "\n" - skip.
+   * if at "\\r\\n" - skip.
+   * if at "\\n" - skip.
    * @return true if position changed
    */
   bool skipRNOrN();
@@ -498,6 +508,7 @@ public:
   bool canContinueAtChar(char c, v_buff_size skipChars);
 
   /**
+   * 检测 caret 的位置是否小于 dataSize 以及无 error
    * Check if caret position < dataSize and not error is set
    * @return
    */

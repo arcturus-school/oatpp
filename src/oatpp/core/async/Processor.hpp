@@ -40,6 +40,7 @@
 namespace oatpp { namespace async {
 
 /**
+ * 异步处理器
  * Asynchronous Processor.<br>
  * Responsible for processing and managing multiple Coroutines.
  * Do not use bare processor to run coroutines. Use &id:oatpp::async::Executor; instead;.
@@ -56,7 +57,7 @@ private:
 
   /*
    * Sequence generating templates
-   * used to convert tuple to parameters pack
+   * used to convert tuple to parameters pack 将元组转为参数
    * Example: expand SequenceGenerator<3>:
    * // 2, 2, {} // 1, 1, {2} // 0, 0, {1, 2} // 0, {0, 1, 2}
    * where {...} is int...S
@@ -96,7 +97,7 @@ private:
 
   std::vector<utils::FastQueue<CoroutineHandle>> m_ioPopQueues;
   std::vector<utils::FastQueue<CoroutineHandle>> m_timerPopQueues;
-
+  // 负载均衡
   v_uint32 m_ioBalancer = 0;
   v_uint32 m_timerBalancer = 0;
 
@@ -112,7 +113,7 @@ private:
 private:
 
   oatpp::concurrency::SpinLock m_taskLock;
-  std::condition_variable_any m_taskCondition;
+  std::condition_variable_any m_taskCondition; // 多线程条件变量(符合某个条件前等待)
   std::list<std::shared_ptr<TaskSubmission>> m_taskList;
   utils::FastQueue<CoroutineHandle> m_pushList;
 
@@ -122,7 +123,7 @@ private:
 
 private:
   std::atomic_bool m_running{true};
-  std::atomic<v_int32> m_tasksCounter{0};
+  std::atomic<v_int32> m_tasksCounter{0}; // 当前处理器的任务数
 private:
 
   void popIOTask(CoroutineHandle* coroutine);
@@ -134,7 +135,7 @@ private:
   void pushQueues();
 
   void putCoroutineToSleep(CoroutineHandle* ch);
-  void wakeCoroutine(CoroutineHandle* ch);
+  void wakeCoroutine(CoroutineHandle* ch); // 唤醒协程
   void checkCoroutinesSleep();
 
 public:
@@ -160,6 +161,7 @@ public:
   void pushTasks(utils::FastQueue<CoroutineHandle>& tasks);
 
   /**
+   * 协程执行
    * Execute Coroutine.
    * @tparam CoroutineType - type of coroutine to execute.
    * @tparam Args - types of arguments to be passed to Coroutine constructor.
@@ -194,6 +196,7 @@ public:
   void stop();
 
   /**
+   * 获取未结束的任务数
    * Get number of all not-finished tasks including tasks rescheduled for processor's co-workers.
    * @return - number of not-finished tasks.
    */

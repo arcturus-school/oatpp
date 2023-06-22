@@ -45,21 +45,25 @@ public:
   struct Variable {
 
     /**
+     * 第一个字符的位置
      * Position of the first char in the original template string.
      */
     v_buff_size posStart;
 
     /**
+     * 最后一个字符的位置
      * Position of the last char in the original template string.
      */
     v_buff_size posEnd;
 
     /**
+     * 变量名
      * Name of the template variable.
      */
     oatpp::String name;
 
     /**
+     * 辅助数据
      * Some auxiliary data.
      */
     std::shared_ptr<void> extra;

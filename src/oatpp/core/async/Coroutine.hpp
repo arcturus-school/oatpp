@@ -38,6 +38,8 @@
 #include <chrono>
 #include <exception>
 
+// 工厂模式
+
 namespace oatpp { namespace async {
 
 class CoroutineHandle; // FWD
@@ -51,6 +53,7 @@ namespace worker {
 }
 
 /**
+ * 异步 action
  * Class Action represents an asynchronous action.
  */
 class Action {
@@ -71,51 +74,61 @@ public:
   static constexpr const v_int32 TYPE_NONE = 0;
 
   /**
+   * 启动协程
    * Indicate that Action is to start coroutine.
    */
   static constexpr const v_int32 TYPE_COROUTINE = 1;
 
   /**
+   * 协程通过 yield 交出控制权
    * Indicate that Action is to YIELD control to other method of Coroutine.
    */
   static constexpr const v_int32 TYPE_YIELD_TO = 2;
 
   /**
+   * 协程重复调用当前方法
    * Indicate that Action is to REPEAT call to current method of Coroutine.
    */
   static constexpr const v_int32 TYPE_REPEAT = 3;
 
   /**
+   * 协程等待一段时间后重复调用当前方法
    * Indicate that Action is to WAIT for some time and then REPEAT call to current method of Coroutine.
    */
   static constexpr const v_int32 TYPE_WAIT_REPEAT = 4;
 
   /**
+   * 正在等待 IO
    * Indicate that Action is waiting for IO and should be assigned to corresponding worker.
    */
   static constexpr const v_int32 TYPE_IO_WAIT = 5;
 
   /**
+   * 重复之前成功的 IO 操作
    * Indicate that Action is to repeat previously successful I/O operation.
    */
   static constexpr const v_int32 TYPE_IO_REPEAT = 6;
 
   /**
+   * 协程已完成并将控制权返回给调用者
    * Indicate that Action is to FINISH current Coroutine and return control to a caller-Coroutine.
    */
   static constexpr const v_int32 TYPE_FINISH = 7;
 
   /**
+   * 存在错误
    * Indicate that Error occurred.
    */
   static constexpr const v_int32 TYPE_ERROR = 8;
 
   /**
+   * 需将协程放入等待列表
    * Indicate that coroutine should be put on a wait-list provided.
    */
   static constexpr const v_int32 TYPE_WAIT_LIST = 9;
 
   /**
+   * 需将协程放入等待列表并提供超时时间
    * Indicate that coroutine should be put on a wait-list provided with a timeout.
    */
   static constexpr const v_int32 TYPE_WAIT_LIST_WITH_TIMEOUT = 10;
@@ -123,6 +136,7 @@ public:
 public:
 
   /**
+   * IO 事件类型
    * Event type qualifier for Actions of type &l:Action::TYPE_IO_WAIT;, &l:Action::TYPE_IO_REPEAT;.
    */
   enum IOEventType : v_int32 {
@@ -348,6 +362,7 @@ public:
 };
 
 /**
+ * 协程调度器
  * CoroutineStarter of Coroutine calls.
  */
 class CoroutineStarter {
@@ -394,6 +409,7 @@ public:
   CoroutineStarter& operator=(CoroutineStarter&& other);
 
   /**
+   * 设置最终启动动作
    * Set final starter action.
    * @param action - &l:Action;.
    * @return - &l:Action;.
@@ -401,6 +417,7 @@ public:
   Action next(Action&& action);
 
   /**
+   * 管道协程启动器
    * Pipeline coroutine starter.
    * @param starter - starter to add.
    * @return - this starter.
@@ -410,6 +427,7 @@ public:
 };
 
 /**
+ * 管理协程链式调用和处理状态
  * This class manages coroutines processing state and a chain of coroutine calls.
  */
 class CoroutineHandle : public oatpp::base::Countable {
@@ -422,10 +440,10 @@ public:
   typedef oatpp::async::Error Error;
   typedef Action (AbstractCoroutine::*FunctionPtr)();
 private:
-  Processor* _PP; // Processor pointer
-  AbstractCoroutine* _CP; // Coroutine pointer
-  FunctionPtr _FP; // Function pointer
-  oatpp::async::Action _SCH_A; // Scheduled action
+  Processor* _PP; // Processor pointer(处理器指针)
+  AbstractCoroutine* _CP; // Coroutine pointer(协程指针)
+  FunctionPtr _FP; // Function pointer(函数指针)
+  oatpp::async::Action _SCH_A; // Scheduled action(调度)
   CoroutineHandle* _ref; // pointer to next coroutine handle in list
 public:
 
@@ -441,6 +459,7 @@ public:
 };
 
 /**
+ * 协程基类(状态管理、协程堆栈管理和错误报告)
  * Abstract Coroutine. Base class for Coroutines. It provides state management, coroutines stack management and error reporting functionality.
  */
 class AbstractCoroutine : public oatpp::base::Countable {
@@ -504,6 +523,7 @@ public:
   virtual ~AbstractCoroutine() = default;
 
   /**
+   * 协程入口
    * Entrypoint of Coroutine.
    * @return - Action
    */
@@ -586,6 +606,7 @@ public:
 };
 
 /**
+ * 协程类
  * Coroutine template. <br>
  * Example usage:<br>
  * `class MyCoroutine : public oatpp::async::Coroutine<MyCoroutine>`
@@ -650,6 +671,7 @@ public:
 };
 
 /**
+ * 带结果的协程抽象类
  * Abstract coroutine with result.
  */
 template<typename ...Args>
@@ -713,6 +735,7 @@ public:
     }
 
     /**
+     * 设置回调函数并返回协程开始 action
      * Set callback for result and return coroutine starting Action.
      * @tparam C - caller coroutine type.
      * @tparam Args - callback params.

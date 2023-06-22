@@ -49,7 +49,7 @@ void CoroutineWaitList::setListener(Listener* listener) {
 
 void CoroutineWaitList::add(CoroutineHandle* coroutine) {
   {
-    std::lock_guard<std::mutex> lock(m_lock);
+    std::lock_guard<std::mutex> lock(m_lock); // 加锁, 作用域结束后解锁
     m_coroutines.insert(coroutine);
   }
   if(m_listener != nullptr) {
@@ -63,7 +63,7 @@ void CoroutineWaitList::notifyFirst() {
     removeCoroutine(*m_coroutines.begin());
   }
 }
-
+// 观察者模式
 void CoroutineWaitList::notifyAll() {
   std::lock_guard<std::mutex> lock(m_lock);
   while (!m_coroutines.empty()) {
@@ -73,7 +73,7 @@ void CoroutineWaitList::notifyAll() {
 
 void CoroutineWaitList::removeCoroutine(CoroutineHandle* coroutine) {
   m_coroutines.erase(coroutine);
-  coroutine->_PP->wakeCoroutine(coroutine);
+  coroutine->_PP->wakeCoroutine(coroutine); // 加入任务列表
 }
 
 void CoroutineWaitList::forgetCoroutine(CoroutineHandle *coroutine) {

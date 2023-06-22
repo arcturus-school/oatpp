@@ -78,6 +78,7 @@ public:
   const Info& getInfo() const;
 
   /**
+   * 序列化对象到流
    * Serialize object to stream. Implement this method.
    * @param stream - &id:oatpp::data::stream::ConsistentOutputStream; to serialize object to.
    * @param variant - Object to serialize.
@@ -85,6 +86,7 @@ public:
   virtual void write(data::stream::ConsistentOutputStream* stream, const type::Void& variant) const = 0;
 
   /**
+   * 对象反序列化
    * Deserialize object. Implement this method.
    * @param caret - &id:oatpp::parser::Caret; over serialized buffer.
    * @param type - pointer to object type. See &id:oatpp::data::mapping::type::Type;.
@@ -93,6 +95,7 @@ public:
   virtual mapping::type::Void read(oatpp::parser::Caret& caret, const mapping::type::Type* const type) const = 0;
 
   /**
+   * 序列化对象至字符串
    * Serialize object to String.
    * @param variant - Object to serialize.
    * @return - serialized object as &id:oatpp::String;.

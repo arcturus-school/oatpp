@@ -49,6 +49,7 @@ public:
   static v_buff_size compare(const void* data1, v_buff_size size1, const void* data2, v_buff_size size2);
 
   /**
+   * 不区分大小写的比较
    * Compare data1, data2 - case insensitive (ASCII only).
    * *It's safe to pass nullptr for data1/data2*
    * @param data1 - pointer to data1.
@@ -62,6 +63,7 @@ public:
   static v_buff_size compareCI_ASCII(const void* data1, v_buff_size size1, const void* data2, v_buff_size size2);
 
   /**
+   * 更新数据为小写
    * Change characters in data to lowercase (ASCII only).
    * @param data - pointer to data.
    * @param size - size of the data.
@@ -69,6 +71,7 @@ public:
   static void lowerCase_ASCII(void* data, v_buff_size size);
 
   /**
+   * 更新数据为大写
    * Change characters in data to uppercase (ASCII only).
    * @param data - pointer to data.
    * @param size - size of the data.

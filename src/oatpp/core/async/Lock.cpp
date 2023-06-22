@@ -34,7 +34,7 @@ Lock::Lock()
 {
   m_list.setListener(this);
 }
-
+// 访问者模式
 void Lock::onNewItem(CoroutineWaitList& list) {
   auto counter = m_counter.load();
   if(counter == 0) {
@@ -65,7 +65,7 @@ void Lock::unlock() {
   if(m_counter < 0) {
     throw std::runtime_error("[oatpp::async::Lock::unlock()]: Error. Invalid state.");
   }
-  m_list.notifyFirst();
+  m_list.notifyFirst(); // 解锁后将协程送入相关处理器中
 }
 
 bool Lock::try_lock() {
@@ -85,7 +85,7 @@ LockGuard::LockGuard()
   , m_lock(nullptr)
 {}
 
-LockGuard::LockGuard(Lock* lock)
+LockGuard::LockGuard(Lock* lock) // 装饰器模式
   : m_ownsLock(false)
   , m_lock(lock)
 {}

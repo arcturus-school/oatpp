@@ -30,6 +30,7 @@
 namespace oatpp { namespace data {
 
 /**
+ * 辅助数据集
  * Bundle of auxiliary data.
  */
 class Bundle {

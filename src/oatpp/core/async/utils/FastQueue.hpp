@@ -54,7 +54,7 @@ public:
       swap(count, other.count);
   }
 
-  FastQueue &operator=(const FastQueue &) = delete;
+  FastQueue &operator=(const FastQueue &) = delete; // 禁用拷贝构造函数
 
   FastQueue &operator=(FastQueue &&other) noexcept {
       if (this != std::addressof(other)) {
@@ -100,7 +100,7 @@ public:
     ++ count;
   }
   
-  void round(){
+  void round(){ // 将队尾元素移动都对头
     if(count > 1) {
       last->_ref = first;
       last = first;
@@ -128,7 +128,7 @@ public:
     delete result;
     -- count;
   }
-
+  // 将 FastQueue 对象中的所有元素移动到另一个 FastQueue 对象中
   static void moveAll(FastQueue& fromQueue, FastQueue& toQueue) {
 
     if(fromQueue.count > 0) {
@@ -150,11 +150,11 @@ public:
     }
 
   }
-
+  // 队列中删除指定元素
   void cutEntry(T* entry, T* prevEntry){
 
     if(prevEntry == nullptr) {
-      popFront();
+      popFront(); // 对头元素直接弹出
     } else {
       prevEntry->_ref = entry->_ref;
       -- count;
@@ -164,7 +164,7 @@ public:
     }
 
   }
-  
+  // 清空队列
   void clear() {
     T* curr = first;
     while (curr != nullptr) {

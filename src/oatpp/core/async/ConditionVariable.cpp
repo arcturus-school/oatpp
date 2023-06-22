@@ -29,6 +29,7 @@ namespace oatpp { namespace async {
 ConditionVariable::ConditionVariable()
   : m_notified(false)
 {
+  // 访问者模式
   m_list.setListener(this);
 }
 
@@ -75,7 +76,7 @@ CoroutineStarter ConditionVariable::wait(LockGuard& lockGuard, std::function<boo
   return WaitCoroutine::start(this, lockGuard, condition);
 
 }
-
+// 带超时时间的等待
 CoroutineStarter ConditionVariable::waitUntil(LockGuard& lockGuard, std::function<bool()> condition, const std::chrono::system_clock::time_point& timeoutTime) {
 
   class WaitCoroutine : public Coroutine<WaitCoroutine> {

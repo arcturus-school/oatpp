@@ -31,6 +31,7 @@
 namespace oatpp { namespace provider {
 
 /**
+ * 资源失效抽象类
  * Abstract resource invalidator.
  * @tparam T - resource class.
  */

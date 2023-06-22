@@ -33,6 +33,7 @@
 namespace oatpp { namespace data { namespace share {
 
 /**
+ * 用户请求时才加载数据
  * Lazy String Map keeps keys, and values as memory label.
  * Once value is requested by user, the new memory block is allocated and value is copied to be stored permanently.
  * @tparam Key - one of: &id:oatpp::data::share::MemoryLabel;, &id:oatpp::data::share::StringKeyLabel;, &id:oatpp::data::share::StringKeyLabelCI;,
@@ -43,8 +44,8 @@ class LazyStringMapTemplate {
 public:
   typedef oatpp::data::mapping::type::String String;
 private:
-  mutable concurrency::SpinLock m_lock;
-  mutable bool m_fullyInitialized;
+  mutable concurrency::SpinLock m_lock; // 自旋锁
+  mutable bool m_fullyInitialized; // 数据是否加载完毕(因为是 lazy)
   MapType m_map;
 public:
 
@@ -138,6 +139,7 @@ public:
   }
 
   /**
+   * map 中不存在才加入数据
    * Put value to map if not already exists.
    * @param key
    * @param value
@@ -180,6 +182,7 @@ public:
   }
 
   /**
+   * 擦除所有出现的 key, 并用新条目替换它们
    * Erases all occurrences of key and replaces them with a new entry
    * @param key
    * @param value
@@ -293,7 +296,7 @@ public:
 
     std::lock_guard<concurrency::SpinLock> lock(m_lock);
 
-    if(!m_fullyInitialized) {
+    if(!m_fullyInitialized) { // 数据需要重新加载
 
       for(auto& pair : m_map) {
         pair.first.captureToOwnMemory();

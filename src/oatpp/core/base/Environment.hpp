@@ -91,7 +91,7 @@ namespace oatpp { namespace base {
 class Logger {
 public:
   /**
-   * Log priority V-verbouse.
+   * Log priority V-verbouse. (日志类别)
    */
   static constexpr v_uint32 PRIORITY_V = 0;
 
@@ -148,6 +148,7 @@ public:
 };
 
 /**
+ * 描述日志记录类别
  * Describes a logging category (i.e. a logging "namespace")
  */
 class LogCategory {
@@ -205,7 +206,7 @@ class LogCategory {
 class DefaultLogger : public Logger {
 public:
   /**
-   * Default Logger Config.
+   * Default Logger Config.(内部类)
    */
   struct Config {
 
@@ -221,6 +222,7 @@ public:
     {}
 
     /**
+     * 输出日志时间
      * Time format of the log message.
      * If nullptr then do not print time.
      */
@@ -501,6 +503,7 @@ if(!(EXP)) { \
   static oatpp::base::LogCategory NAME;
 
 /**
+ * 使用宏直接在类头中实现日志记录类别
  * Convenience macro to implement a logging category directly in a class header.
  * @param NAME - variable-name of the category which is later used to reference the category.
  * @param TAG - tag printed with each message printed usig this category.

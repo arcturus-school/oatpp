@@ -39,7 +39,7 @@ private:
   
   struct FileHandle {
 
-    oatpp::String fileName;
+    oatpp::String fileName; // 文件名
 
     FileHandle(const oatpp::String& fullFileName)
       : fileName(fullFileName)
@@ -50,7 +50,7 @@ private:
 public:
   static oatpp::String concatDirAndName(const oatpp::String& dir, const oatpp::String& filename);
 private:
-  std::shared_ptr<FileHandle> m_handle;
+  std::shared_ptr<FileHandle> m_handle; // 文件地址
 public:
 
   /**

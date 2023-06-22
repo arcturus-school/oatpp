@@ -105,11 +105,11 @@ const type::Type* TypeResolver::resolveType(const type::Type* type, Cache& cache
   if(type == nullptr) {
     return nullptr;
   }
-
+  // 类型已知, 则直接返回
   if(isKnownClass(type->classId)) {
     return type;
   }
-
+  // 查找缓存
   auto it = cache.types.find(type);
   if(it != cache.types.end()) {
     return it->second;
@@ -136,7 +136,7 @@ type::Void TypeResolver::resolveValue(const type::Void& value, Cache& cache) con
     return value;
   }
 
-  auto  typeIt = cache.values.find(value.getValueType());
+  auto typeIt = cache.values.find(value.getValueType());
   if(typeIt != cache.values.end()) {
     auto valueIt = typeIt->second.find(value);
     if(valueIt != typeIt->second.end()) {

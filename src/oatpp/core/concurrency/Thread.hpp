@@ -31,6 +31,7 @@
 namespace oatpp { namespace concurrency {
 
 /**
+ * 将线程绑定到指定 CPU 上
  * Set thread affinity to one CPU.
  * @param nativeHandle - `std::thread::native_handle_type`.
  * @param cpuIndex - index of CPU.
@@ -40,6 +41,7 @@ namespace oatpp { namespace concurrency {
 v_int32 setThreadAffinityToOneCpu(std::thread::native_handle_type nativeHandle, v_int32 cpuIndex);
 
 /**
+ * 将线程绑定到某个范围的 CPU 上
  * Set thread affinity [firstCpuIndex..lastCpuIndex].
  * @param nativeHandle - `std::thread::native_handle_type`.
  * @param firstCpuIndex - from CPU-index.
@@ -50,6 +52,7 @@ v_int32 setThreadAffinityToOneCpu(std::thread::native_handle_type nativeHandle, 
 v_int32 setThreadAffinityToCpuRange(std::thread::native_handle_type nativeHandle, v_int32 firstCpuIndex, v_int32 lastCpuIndex);
 
 /**
+ * 获取硬件并发量
  * Get hardware concurrency.
  * @return - OATPP_THREAD_HARDWARE_CONCURRENCY config value if set <br>
  * else return std::thread::hardware_concurrency() <br>

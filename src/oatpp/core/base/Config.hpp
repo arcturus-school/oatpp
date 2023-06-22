@@ -31,6 +31,7 @@
 #define oatpp_base_Config_hpp
 
 /**
+ * 是否激活 Countable, 用于检测内存泄漏
  * If NOT DISABLED, counting of all object of class oatpp::base::Countable is enabled
  * for debug purposes and detection of memory leaks.
  * Disable object counting for Release builds using '-D OATPP_DISABLE_ENV_OBJECT_COUNTERS' flag for better performance
@@ -38,6 +39,7 @@
 //#define OATPP_DISABLE_ENV_OBJECT_COUNTERS
 
 /**
+ * 是否禁用内存池分配
  * Define this to disable memory-pool allocations.
  * This will make oatpp::base::memory::MemoryPool, method obtain and free call new and delete directly
  */
@@ -57,6 +59,7 @@
 #endif
 
 /**
+ * 是否禁用 thread_local 功能
  * Disable `thread_local` feature. <br>
  * See https://github.com/oatpp/oatpp/issues/81
  */
@@ -65,7 +68,7 @@
 #ifndef OATPP_FLOAT_STRING_FORMAT
   #define OATPP_FLOAT_STRING_FORMAT "%.16g"
 #endif
-
+// 禁用某个优先级的日志输出, 基本原理是根据条件编译指令(ifndef)来决定输出日志代码的实现方式
 /**
  * DISABLE logs priority V
  */

@@ -32,16 +32,19 @@
 namespace oatpp { namespace data { namespace buffer {
 
 /**
+ * 异步内联读操作
  * Convenience structure for stream Async-Inline read operations.
  */
 struct InlineReadData {
 
   /**
+   * 指向缓冲区中当前位置的指针
    * Pointer to current position in the buffer.
    */
   void* currBufferPtr;
 
   /**
+   * 要读到缓冲区剩余的字节数
    * Bytes left to read to the buffer.
    */
   v_buff_size bytesLeft;
@@ -66,6 +69,7 @@ struct InlineReadData {
   void set(void* data, v_buff_size size);
 
   /**
+   * 将读取缓冲区中的位置增加 amount 字节
    * Increase position in the read buffer by `amount` bytes. <br>
    * This will increase `currBufferPtr` and descrease `bytesLeft` values.
    * @param amount
@@ -80,16 +84,19 @@ struct InlineReadData {
 };
 
 /**
+ * 异步内联写操作
  * Convenience structure for stream Async-Inline write operations.
  */
 struct InlineWriteData {
 
   /**
+   * 指向缓冲区中当前位置的指针
    * Pointer to current position in the buffer.
    */
   const void* currBufferPtr;
 
   /**
+   * 缓冲区中剩余要写入的字节数
    * Bytes left to write from the buffer.
    */
   v_buff_size bytesLeft;
@@ -191,6 +198,7 @@ public:
 };
 
 /**
+ * 缓冲区处理器流水线
  * Pipeline of buffer processors.
  */
 class ProcessingPipeline : public Processor {

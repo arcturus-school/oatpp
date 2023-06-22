@@ -31,6 +31,7 @@
 namespace oatpp { namespace data { namespace resource {
 
 /**
+ * 临时文件
  * Temporary file - the file which gets deleted when the destructor is called
  * (more precisely when all copies of the same `TemporaryFile` object deleted). <br>
  * The `TemporaryFile` object internally stores a `shared_ptr` to a file handle.

@@ -46,6 +46,7 @@ namespace oatpp {
 #endif
 
 /**
+ * 检查 IO handle 是否有效
  * Check if IO handle is valid.
  * @param handle - IO handle.
  * @return - `true` if valid.

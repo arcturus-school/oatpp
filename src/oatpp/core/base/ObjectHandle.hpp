@@ -35,7 +35,7 @@ private:
   T* m_object;
   std::shared_ptr<T> m_ptr;
 public:
-
+  // 装饰器模式
   ObjectHandle(T* object)
     : m_object(object)
   {}

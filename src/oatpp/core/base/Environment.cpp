@@ -135,7 +135,7 @@ void DefaultLogger::log(v_uint32 priority, const std::string& tag, const std::st
 }
 
 void DefaultLogger::enablePriority(v_uint32 priority) {
-  if (priority > PRIORITY_E) {
+  if (priority > PRIORITY_E) { // 忽略不存在的优先级
     return;
   }
   m_config.logMask |= (1 << priority);
@@ -229,7 +229,7 @@ void Environment::destroy(){
     WSACleanup();
 #endif
 }
-
+// 检查当前环境下各种基本数据类型的大小和取值范围是否符合预期
 void Environment::checkTypes(){
 
   static_assert(sizeof(v_char8) == 1, "");
@@ -361,7 +361,7 @@ void Environment::vlogFormatted(v_uint32 priority, const std::string& tag, const
   // check how big our buffer has to be
   va_list argscpy;
   va_copy(argscpy, args);
-  v_buff_size allocsize = vsnprintf(nullptr, 0, message, argscpy) + 1;
+  v_buff_size allocsize = vsnprintf(nullptr, 0, message, argscpy) + 1; // 计算格式化后字符串所需缓冲区大小
   // alloc the buffer (or the max size)
   if (allocsize > m_logger->getMaxFormattingBufferSize()) {
     allocsize = m_logger->getMaxFormattingBufferSize();
@@ -373,7 +373,7 @@ void Environment::vlogFormatted(v_uint32 priority, const std::string& tag, const
   // call (user) providen log function
   log(priority, tag, buffer.get());
 }
-
+// 根据组件的 typeName 将组件加入 map 中
 void Environment::registerComponent(const std::string& typeName, const std::string& componentName, void* component) {
   std::lock_guard<std::mutex> lock(getComponentsMutex());
   auto& bucket = getComponents()[typeName];
@@ -401,7 +401,7 @@ void Environment::unregisterComponent(const std::string& typeName, const std::st
     components.erase(bucketIt);
   }
 }
-
+// 亨元模式
 void* Environment::getComponent(const std::string& typeName) {
   std::lock_guard<std::mutex> lock(getComponentsMutex());
   auto& components = getComponents();

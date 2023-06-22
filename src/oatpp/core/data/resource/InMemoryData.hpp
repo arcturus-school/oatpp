@@ -35,7 +35,7 @@ private:
 
   struct DataHandle {
 
-    oatpp::String data;
+    oatpp::String data; // 数据
 
     DataHandle(const oatpp::String& pData)
       : data(pData)

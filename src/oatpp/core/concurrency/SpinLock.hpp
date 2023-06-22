@@ -33,6 +33,8 @@
 namespace oatpp { namespace concurrency {
 
 /**
+ * 自旋锁: 一种基于循环等待的锁, 它的特点是在获取锁的时候不会立即进入阻塞状态,
+ * 而是通过不断地尝试获取锁来等待锁的释放, 可以有效地减少线程上下文切换和调度开销
  * SpinLock implementation based on atomic.
  * Meets the `Lockable` requirements.
  */

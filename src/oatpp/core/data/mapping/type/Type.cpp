@@ -55,7 +55,7 @@ v_int32 ClassId::registerClassName(const char* name) {
   getClassNames().push_back(name);
   return (v_int32) getClassNames().size() - 1;
 }
-
+// 每实例化一个类型就将其加入到 ClassId 的 classNames 里
 ClassId::ClassId(const char* pName)
   : name(pName)
   , id(registerClassName(pName))

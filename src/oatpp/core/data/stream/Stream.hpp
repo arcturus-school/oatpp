@@ -127,6 +127,7 @@ public:
 };
 
 /**
+ * 没有初始化的 context 的默认实现
  * The default implementation for context with no initialization.
  */
 class DefaultInitializedContext : public oatpp::data::stream::Context {
@@ -361,6 +362,7 @@ class BufferedInputStream : public InputStream {
   virtual ~BufferedInputStream() = default;
 
   /**
+   * 查看缓冲区中 count 字节数据
    * Peek up to count of bytes int he buffer
    * @param data
    * @param count
@@ -369,12 +371,14 @@ class BufferedInputStream : public InputStream {
   virtual v_io_size peek(void *data, v_buff_size count, async::Action& action) = 0;
 
   /**
+   * 当前缓冲区可读的数据量
    * Amount of bytes currently available to read from buffer.
    * @return &id:oatpp::v_io_size;.
    */
   virtual v_io_size availableToRead() const = 0;
 
   /**
+   * 读偏移量
    * Commit read offset
    * @param count
    * @return [1..count], IOErrors.

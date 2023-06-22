@@ -33,6 +33,7 @@ SpinLock::SpinLock()
 {}
   
 void SpinLock::lock() {
+  // atomic_exchange_explicit 设置锁(m_atom)的状态为 true, 并返回之前的状态
   while (std::atomic_exchange_explicit(&m_atom, true, std::memory_order_acquire)) {
     std::this_thread::yield();
   }
