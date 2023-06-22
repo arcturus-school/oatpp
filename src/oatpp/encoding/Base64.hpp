@@ -100,6 +100,7 @@ public:
   static v_buff_size calcEncodedStringSize(v_buff_size size);
 
   /**
+   * 计算解码结果的大小
    * Calculate size of decoding result. this method assumes that data passed as a param consists of standard base64 set of chars
    * `['A'-'Z', 'a'-'z', '0'-'9']` and three configurable auxiliary chars.
    * @param data - pointer to data.
@@ -111,6 +112,7 @@ public:
   static v_buff_size calcDecodedStringSize(const char* data, v_buff_size size, v_buff_size& base64StrLength, const char* auxiliaryChars = ALPHABET_BASE64_AUXILIARY_CHARS);
 
   /**
+   * 检查 data 是否是有效的 base64 编码字符串
    * Check if data is a valid base64 encoded string.
    * @param data - pointer to data.
    * @param size - data size.

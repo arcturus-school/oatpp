@@ -35,6 +35,7 @@ namespace oatpp { namespace encoding {
 class Unicode {
 public:
   /**
+   * 按 UTF-8 字符的第一个字节获取长度
    * Get length in bytes of UTF-8 character by its first byte.
    * @param firstByte - first byte of UTF-8 character.
    * @return - length in bytes of UTF-8 character.
@@ -42,6 +43,7 @@ public:
   static v_buff_size getUtf8CharSequenceLength(v_char8 firstByte);
 
   /**
+   * 按 UTF-8 字符代码获取长度
    * Get length in bytes of UTF-8 character by its code.
    * @param code - code of UTF-8 character.
    * @return - length in bytes of UTF-8 character.
@@ -49,6 +51,7 @@ public:
   static v_buff_size getUtf8CharSequenceLengthForCode(v_uint32 code);
 
   /**
+   * 获取 UTF-8 字符的编码
    * Get code of UTF-8 character.
    * @param sequence - pointer to first byte of UTF-8 character.
    * @param length - out parameter. Length in bytes of UTF-8 character.
@@ -57,6 +60,7 @@ public:
   static v_int32 encodeUtf8Char(const char* sequence, v_buff_size& length);
 
   /**
+   * 将 UTF-8 字符解码后写入 buffer
    * Write UTF-8 character to buffer.
    * @param code  - UTF-8 character code.
    * @param buffer - pointer to write UTF-8 character to.
