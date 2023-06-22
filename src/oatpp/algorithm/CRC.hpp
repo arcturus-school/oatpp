@@ -32,25 +32,32 @@
 namespace oatpp { namespace algorithm {
 
 /**
+ * 循环冗余校验算法
  * Implementation of CRC-32. Cyclic redundancy check algorithm.
  */
 class CRC32 {
 public:
 
   /**
+   * 预先计算的表
    * Precalculated table
    */
   static const p_uint32 TABLE_04C11DB7;
 public:
 
+  /**
+   * 多项式进行位翻转
+  */
   static v_uint32 bitReverse(v_uint32 poly);
   
   /**
-   *  Generates v_uint32 table[256] for polynomial
+   * 为多项式生成一张表
+   * Generates v_uint32 table[256] for polynomial
    */
   static p_uint32 generateTable(v_uint32 poly);
 
   /**
+   * 计算 CRC32 值
    * Calculate CRC32 value for buffer of defined size
    * @param buffer
    * @param size
