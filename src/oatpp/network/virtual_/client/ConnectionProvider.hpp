@@ -67,6 +67,7 @@ public:
   static std::shared_ptr<ConnectionProvider> createShared(const std::shared_ptr<virtual_::Interface>& _interface);
 
   /**
+   * 限制可从 socket 读取的字节数和可写入 socket 的字节数
    * Limit the available amount of bytes to read from socket and limit the available amount of bytes to write to socket. <br>
    * This method is used for testing purposes only.<br>
    * @param maxToRead - maximum available amount of bytes to read.
@@ -78,17 +79,20 @@ public:
   }
 
   /**
+   * 实现 &id:oatpp::provider::Provider::Stop 方法
    * Implementation of &id:oatpp::provider::Provider::Stop; method.
    */
   void stop() override;
 
   /**
+   * 获取连接
    * Get connection.
    * @return - `std::shared_ptr` to &id:oatpp::data::stream::IOStream;.
    */
   provider::ResourceHandle<data::stream::IOStream> get() override;
 
   /**
+   * 阻塞性获取连接
    * Get connection in asynchronous manner.
    * @return - &id:oatpp::async::CoroutineStarterForResult;.
    */

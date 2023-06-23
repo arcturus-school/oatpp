@@ -44,7 +44,7 @@ ConnectionMonitor::ConnectionProxy::ConnectionProxy(const std::shared_ptr<Monito
                                                     const provider::ResourceHandle<data::stream::IOStream>& connectionHandle)
   : m_monitor(monitor)
   , m_connectionHandle(connectionHandle)
-{
+{ // 连接建立时间
   m_stats.timestampCreated = base::Environment::getMicroTickCount();
 }
 
@@ -70,7 +70,7 @@ ConnectionMonitor::ConnectionProxy::~ConnectionProxy() {
 v_io_size ConnectionMonitor::ConnectionProxy::read(void *buffer, v_buff_size count, async::Action& action) {
   auto res = m_connectionHandle.object->read(buffer, count, action);
   std::lock_guard<std::mutex> lock(m_statsMutex);
-  m_monitor->onConnectionRead(m_stats, res);
+  m_monitor->onConnectionRead(m_stats, res); // 读取时进行记录
   return res;
 }
 
@@ -125,7 +125,7 @@ void ConnectionMonitor::Monitor::monitorTask(std::shared_ptr<Monitor> monitor) {
         auto connection = (ConnectionProxy*) caddr;
         std::lock_guard<std::mutex> dataLock(connection->m_statsMutex);
         std::lock_guard<std::mutex> analysersLock(monitor->m_checkMutex);
-
+        // 指标合法性检测
         for(auto& a : monitor->m_metricsCheckers) {
           bool res = a->check(connection->m_stats, currMicroTime);
           if(!res) {

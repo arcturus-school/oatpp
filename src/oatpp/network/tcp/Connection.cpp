@@ -110,7 +110,7 @@ v_io_size Connection::write(const void *buff, v_buff_size count, async::Action& 
 #ifdef MSG_NOSIGNAL
   flags |= MSG_NOSIGNAL;
 #endif
-
+  // 像指定套接字(m_handle)发送数据
   auto result = ::send(m_handle, buff, (size_t)count, flags);
 
   if(result < 0) {
@@ -270,7 +270,7 @@ void Connection::close(){
 #if defined(WIN32) || defined(_WIN32)
 	::closesocket(m_handle);
 #else
-	::close(m_handle);
+	::close(m_handle); // 关闭套接字
 #endif
 }
 

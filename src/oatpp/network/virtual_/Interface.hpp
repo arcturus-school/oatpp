@@ -34,12 +34,13 @@
 namespace oatpp { namespace network { namespace virtual_ {
 
 /**
+ * 虚拟连接
  * "Virtual" Interface provides functionality for accepting "virtual" connections.
  * "virtual" connection is represented by &id:oatpp::network::virtual_::Socket;.
  */
 class Interface : public oatpp::base::Countable {
 private:
-  static std::recursive_mutex m_registryMutex;
+  static std::recursive_mutex m_registryMutex; // 允许同一线程多次获取该锁, 而不会产生阻塞
   static std::unordered_map<oatpp::String, std::weak_ptr<Interface>> m_registry;
 private:
   static void registerInterface(const std::shared_ptr<Interface>& _interface);
@@ -52,7 +53,7 @@ public:
   class ListenerLock {
     friend Interface;
   private:
-    Interface* m_interface;
+    Interface* m_interface; // 接口
   private:
     ListenerLock(Interface* _interface);
   public:
@@ -67,7 +68,7 @@ public:
   class ConnectionSubmission {
     friend Interface;
   private:
-    std::shared_ptr<Socket> m_socket;
+    std::shared_ptr<Socket> m_socket; // 套接字对象
     std::mutex m_mutex;
     std::condition_variable m_condition;
     std::atomic<bool> m_valid;
@@ -134,6 +135,7 @@ public:
   ~Interface();
 
   /**
+   * 获取给定名称的接口
    * Obtain interface for given name.
    * @param name - name of the interface.
    * @return - `std::shared_ptr` to Interface.
@@ -147,18 +149,21 @@ public:
   std::shared_ptr<ListenerLock> bind();
 
   /**
+   * 获取连接请求对象
    * Connect to interface.
    * @return - &l:Interface::ConnectionSubmission;.
    */
   std::shared_ptr<ConnectionSubmission> connect();
 
   /**
+   * 非阻塞连接接口
    * Connect to interface.
    * @return - &l:Interface::ConnectionSubmission; on success. Empty `std::shared_ptr` on failure.
    */
   std::shared_ptr<ConnectionSubmission> connectNonBlocking();
 
   /**
+   * 阻塞并等待进入连接
    * Block and wait for incloming connection.
    * @param waitingHandle - reference to a boolean variable.
    * User may set waitingHandle = false and call &l:Interface::notifyAcceptors (); in order to break waiting loop. and exit accept() method.
@@ -169,6 +174,7 @@ public:
                                  const std::chrono::duration<v_int64, std::micro>& timeout = std::chrono::minutes (10));
 
   /**
+   * 检查传入连接是否可用
    * Check if incoming connection is available. NonBlocking.
    * @return - `std::shared_ptr` to &id:oatpp::network::virtual_::Socket; if available.
    * Empty `std::shared_ptr` if no incoming connection is available at the moment.
@@ -176,17 +182,20 @@ public:
   std::shared_ptr<Socket> acceptNonBlocking();
 
   /**
+   * 删除所有等待的连接
    * Drop all waiting connections.
    */
   void dropAllConnection();
 
   /**
+   * 通知所有正在等待 accept() 的线程
    * Notify all threads that are waiting on accept().
    * Those threads that have waitingHandle changed to false will be unblocked.
    */
   void notifyAcceptors();
 
   /**
+   * 获取连接名称(host)
    * Get interface name.
    * @return - &id:oatpp::String;.
    */

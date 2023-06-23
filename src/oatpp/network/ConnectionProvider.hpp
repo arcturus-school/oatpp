@@ -43,11 +43,13 @@ class ConnectionProvider : public provider::Provider<data::stream::IOStream> {
 public:
 
   /**
+   * host 的预定义属性键
    * Predefined property key for HOST.
    */
   static const char* const PROPERTY_HOST;
 
   /**
+   * port 的预定义属性键
    * Predefined property key for PORT.
    */
   static const char* const PROPERTY_PORT;

@@ -78,7 +78,7 @@ void Server::mainLoop(Server *instance) {
   instance->setStatus(STATUS_STARTING, STATUS_RUNNING);
   std::shared_ptr<const std::unordered_map<oatpp::String, oatpp::String>> params;
 
-  while (instance->getStatus() == STATUS_RUNNING) {
+  while (instance->getStatus() == STATUS_RUNNING /* 当状态为 STATUS_STOPPING 时退出 */) {
 
     auto connectionHandle = instance->m_connectionProvider->get();
 
@@ -105,7 +105,7 @@ void Server::run(std::function<bool()> conditional) {
   }
 
   m_threaded = false;
-  setStatus(STATUS_CREATED, STATUS_STARTING);
+  setStatus(STATUS_CREATED, STATUS_STARTING); // 设置服务状态
 
   if (conditional) {
     m_condition = std::move(conditional);
@@ -127,7 +127,7 @@ void Server::run(bool startAsNewThread) {
       throw std::runtime_error("[oatpp::network::server::run()] Error. Server already started");
   }
 
-  m_threaded = startAsNewThread;
+  m_threaded = startAsNewThread; // 是否新开一个线程
   setStatus(STATUS_CREATED, STATUS_STARTING);
 
   if (m_threaded) {

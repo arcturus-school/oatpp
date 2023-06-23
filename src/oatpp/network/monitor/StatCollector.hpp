@@ -31,49 +31,58 @@
 namespace oatpp { namespace network { namespace monitor {
 
 /**
+ * 连接数据
  * ConnectionStats.
  */
 struct ConnectionStats {
 
   /**
+   * 创建连接时的时间戳
    * Timestamp created microseconds.
    * When connection was created.
    */
   v_int64 timestampCreated = 0;
 
   /**
+   * 从连接中读取的字节数
    * Total bytes read from the connection.
    * Logs all bytes when the `read` method is called.
    */
   v_io_size totalRead = 0;
 
   /**
+   * 写入连接的字节数
    * Total bytes written to the connection.
    * Logs all bytes when the `write` method is called.
    */
   v_io_size totalWrite = 0;
 
   /**
+   * 最后一次成功读的时间戳
    * Timestamp microseconds when the last successful read was performed on the connection.
    */
   v_int64 timestampLastRead = 0;
 
   /**
+   * 最后一次成功写的时间戳
    * Timestamp microseconds when the last successful write was performed on the connection.
    */
   v_int64 timestampLastWrite = 0;
 
   /**
+   * 最后一次成功读的字节数
    * Amount of bytes read during the last successful read.
    */
   v_io_size lastReadSize = 0;
 
   /**
+   * 最后一次成功写的字节数
    * Amount of bytes written during the last successful write.
    */
   v_io_size lastWriteSize = 0;
 
   /**
+   * 由统计收集器收集的数据
    * Data collected by stat-collectors - &l:StatCollector;
    */
   std::unordered_map<oatpp::String, void*> metricsData;
@@ -81,6 +90,7 @@ struct ConnectionStats {
 };
 
 /**
+ * 收集连接的度量数据
  * StatCollector collects metrics data of the connection.
  */
 class StatCollector : public oatpp::base::Countable {

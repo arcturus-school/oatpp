@@ -30,6 +30,7 @@
 namespace oatpp { namespace network { namespace virtual_ {
 
 /**
+ * 虚拟套接字实现, 可以用作同一个进程的不同线程之间的双向数据传输
  * Virtual socket implementation. Can be used as a bidirectional data transfer between different threads of the same process. <br>
  * Under the hood it uses a pair of &id:oatpp::network::virtual_::Pipe;. One to write data to, and one to read data from.
  * Extends &id:oatpp::base::Countable; and &id:oatpp::data::stream::IOStream;.

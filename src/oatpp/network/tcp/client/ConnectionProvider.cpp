@@ -117,7 +117,7 @@ provider::ResourceHandle<data::stream::IOStream> ConnectionProvider::get() {
   int err = 0;
 
   while(currResult != nullptr) {
-
+    // 尝试生成客户端套接字
     clientHandle = socket(currResult->ai_family, currResult->ai_socktype, currResult->ai_protocol);
 
     if(clientHandle >= 0) {
@@ -153,7 +153,7 @@ provider::ResourceHandle<data::stream::IOStream> ConnectionProvider::get() {
     OATPP_LOGD("[oatpp::network::tcp::client::ConnectionProvider::getConnection()]", "Warning. Failed to set %s for socket", "SO_NOSIGPIPE");
   }
 #endif
-
+  // 返回客户端套接字句柄
   return provider::ResourceHandle<data::stream::IOStream>(
       std::make_shared<oatpp::network::tcp::Connection>(clientHandle),
       m_invalidator

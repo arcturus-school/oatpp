@@ -36,6 +36,7 @@
 namespace oatpp { namespace network { namespace monitor {
 
 /**
+ * 能够管理所提供连接的中间人并关闭那些不满足所选规则的
  * ConnectionMonitor is a middleman who's able to manage provided connections
  * and close those ones that are not satisfy selected rules.
  */
@@ -56,10 +57,10 @@ private:
   class ConnectionProxy : public data::stream::IOStream {
     friend Monitor;
   private:
-    std::shared_ptr<Monitor> m_monitor;
+    std::shared_ptr<Monitor> m_monitor; // 监视器
     provider::ResourceHandle<data::stream::IOStream> m_connectionHandle;
     std::mutex m_statsMutex;
-    ConnectionStats m_stats;
+    ConnectionStats m_stats; // 连接数据
   public:
 
     ConnectionProxy(const std::shared_ptr<Monitor>& monitor,

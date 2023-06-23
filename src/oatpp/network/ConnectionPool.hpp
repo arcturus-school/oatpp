@@ -32,6 +32,7 @@ namespace oatpp { namespace network {
 
 /**
  * Wrapper over &id:oatpp::data::stream::IOStream;.
+ * 将在初始化时从池中获取连接, 并在销毁时将连接返回到池中
  * Will acquire connection from the pool on initialization and will return connection to the pool on destruction.
  */
 struct ConnectionAcquisitionProxy : public provider::AcquisitionProxy<data::stream::IOStream, ConnectionAcquisitionProxy> {

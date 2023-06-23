@@ -37,6 +37,7 @@ ConnectionProvider::ConnectionProvider(const std::shared_ptr<virtual_::Interface
   , m_maxAvailableToRead(-1)
   , m_maxAvailableToWrite(-1)
 {
+  // 设置属性
   setProperty(PROPERTY_HOST, m_interface->getName());
   setProperty(PROPERTY_PORT, "0");
 }

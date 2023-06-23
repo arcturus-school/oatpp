@@ -85,11 +85,12 @@ public:
 
 private:
   std::shared_ptr<ConnectionInvalidator> m_invalidator;
-  network::Address m_address;
+  network::Address m_address; // 连接地址
   std::atomic<bool> m_closed;
-  oatpp::v_io_handle m_serverHandle;
+  oatpp::v_io_handle m_serverHandle; // scoket 句柄
   bool m_useExtendedConnections;
 private:
+  // 初始化服务器
   oatpp::v_io_handle instantiateServer();
 private:
   void prepareConnectionHandle(oatpp::v_io_handle handle);
@@ -129,6 +130,7 @@ public:
   void stop() override;
 
   /**
+   * 获取传入连接
    * Get incoming connection.
    * @return &id:oatpp::data::stream::IOStream;.
    */

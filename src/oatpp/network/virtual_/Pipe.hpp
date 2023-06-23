@@ -40,6 +40,7 @@
 namespace oatpp { namespace network { namespace virtual_ {
 
 /**
+ * 虚拟管道实现, 可用于同一进程的不同线程之间的单向数据传输
  * Virtual pipe implementation. Can be used for unidirectional data transfer between different threads of the same process. <br>
  * Under the hood it uses &id:oatpp::data::buffer::SynchronizedFIFOBuffer; over the &id:oatpp::data::buffer::IOBuffer;.
  */
@@ -48,6 +49,7 @@ public:
 
   /**
    * Pipe Reader. Extends &id:oatpp::data::stream::InputStream;.
+   * 为管道提供读取接口, 可以在阻塞和非阻塞两种情况下工作
    * Provides read interface for the pipe. Can work in both blocking and nonblocking regime.
    */
   class Reader : public oatpp::data::stream::InputStream {
@@ -118,6 +120,7 @@ public:
     v_io_size read(void *data, v_buff_size count, async::Action& action) override;
 
     /**
+     * 设置阻塞还是非阻塞
      * Set InputStream I/O mode.
      * @param ioMode
      */

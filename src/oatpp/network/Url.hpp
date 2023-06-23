@@ -33,6 +33,7 @@ namespace oatpp { namespace network {
 
 
 /**
+ * 保存 URL 信息的类
  * Class holding URL information.
  */
 class Url {
@@ -50,6 +51,7 @@ public:
 public:
 
   /**
+   * 表示 URL 授权信息的结构
    * Structure representing URL Authority information.
    */
   struct Authority {

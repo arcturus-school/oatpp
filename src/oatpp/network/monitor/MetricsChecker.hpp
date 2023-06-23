@@ -41,6 +41,7 @@ public:
   virtual ~MetricsChecker() = default;
 
   /**
+   * 获取 MetricsChecker 检查的监控指标名称列表
    * Get list of metrics names that are checked by this MetricsChecker.
    * @return
    */
@@ -56,6 +57,7 @@ public:
   virtual std::shared_ptr<StatCollector> createStatCollector(const oatpp::String& metricName) = 0;
 
   /**
+   * 检测连接是否满足规则
    * Called by &id:oatpp::network::monitor::ConnectionMonitor; on each
    * time interval to check if connection satisfies the rule.
    * @param stats - &id:oatpp::network::monitor::ConnectionStats;.

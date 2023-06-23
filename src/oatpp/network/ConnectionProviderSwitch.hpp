@@ -31,6 +31,7 @@
 namespace oatpp { namespace network {
 
 /**
+ * 可用于热更改连接提供程序, 如热重载服务器证书(策略模式)
  * ConnectionProviderSwitch can be used to hot-change connection providers.
  * Ex.: to hot-reload server certificate.
  */

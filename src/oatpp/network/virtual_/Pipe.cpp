@@ -49,7 +49,7 @@ v_io_size Pipe::Reader::read(void *data, v_buff_size count, async::Action& actio
   Pipe& pipe = *m_pipe;
   oatpp::v_io_size result;
   
-  if(m_ioMode == oatpp::data::stream::IOMode::ASYNCHRONOUS) {
+  if(m_ioMode == oatpp::data::stream::IOMode::ASYNCHRONOUS/* 阻塞模式 */) {
 
     std::lock_guard<std::mutex> lock(pipe.m_mutex);
 
@@ -75,7 +75,7 @@ v_io_size Pipe::Reader::read(void *data, v_buff_size count, async::Action& actio
   }
 
   if(result > 0) {
-    pipe.m_conditionWrite.notify_one();
+    pipe.m_conditionWrite.notify_one(); // 唤醒等待线程
     pipe.m_writer.notifyWaitList();
   }
   
@@ -149,7 +149,7 @@ v_io_size Pipe::Writer::write(const void *data, v_buff_size count, async::Action
 
   if(result > 0) {
     pipe.m_conditionRead.notify_one();
-    pipe.m_reader.notifyWaitList();
+    pipe.m_reader.notifyWaitList(); // 写入成功后通知所有等待队列中的线程进行读操作
   }
   
   return result;

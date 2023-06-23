@@ -120,12 +120,12 @@ void Interface::ConnectionSubmission::setSocket(const std::shared_ptr<Socket>& s
     std::lock_guard<std::mutex> lock(m_mutex);
     m_socket = socket;
   }
-  m_condition.notify_one();
+  m_condition.notify_one(); // 设置 socket 后通知 getSocket 不再阻塞
 }
 
 std::shared_ptr<Socket> Interface::ConnectionSubmission::getSocket() {
   std::unique_lock<std::mutex> lock(m_mutex);
-  while (!m_socket && m_valid) {
+  while (!m_socket && m_valid) { // socket 不存在或者接口无效时一直等待
     m_condition.wait(lock);
   }
   return m_socket;
@@ -146,15 +146,15 @@ bool Interface::ConnectionSubmission::isValid() {
 }
   
 std::shared_ptr<Socket> Interface::acceptSubmission(const std::shared_ptr<ConnectionSubmission>& submission) {
-  
+  // 新建两个管道
   auto pipeIn = Pipe::createShared();
   auto pipeOut = Pipe::createShared();
-
+  // 新建两个套接字
   auto serverSocket = Socket::createShared(pipeIn, pipeOut);
   auto clientSocket = Socket::createShared(pipeOut, pipeIn);
-  
+  // 客户端套接字分配给连接请求对象(submission 会一直阻塞直到分配套接字)
   submission->setSocket(clientSocket);
-  
+  // 返回服务端套接字
   return serverSocket;
   
 }
@@ -184,7 +184,8 @@ std::shared_ptr<Interface::ConnectionSubmission> Interface::connect() {
     auto submission = std::make_shared<ConnectionSubmission>(true);
     {
       std::lock_guard<std::mutex> lock(m_mutex);
-      m_submissions.push_back(submission);
+      // m_submissions 为空则 accept 会被阻塞, 直到有 connect 后解锁
+      m_submissions.push_back(submission); 
     }
     m_condition.notify_one();
     return submission;
@@ -241,7 +242,7 @@ void Interface::dropAllConnection() {
   std::unique_lock<std::mutex> lock(m_mutex);
 
   for (const auto& submission : m_submissions) {
-    submission->invalidate();
+    submission->invalidate(); // 使所有连接请求对象失效
   }
   m_submissions.clear();
 

@@ -113,10 +113,12 @@ void ConnectionProvider::ConnectionInvalidator::invalidate(const std::shared_ptr
 #if defined(WIN32) || defined(_WIN32)
   shutdown(handle, SD_BOTH);
 #else
-  shutdown(handle, SHUT_RDWR);
+  shutdown(handle, SHUT_RDWR); // 向远程主机发送一个关闭请求, 然后等待远程主机响应
 #endif
 
-
+  // 与 virtual_ 不同, virtual_ 的是本地连接, 
+  // 使用 Pipe 实现, 可以直接 close 关闭管道,
+  // 而远程连接的 socket 不能 close
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -128,6 +130,7 @@ ConnectionProvider::ConnectionProvider(const network::Address& address, bool use
         , m_closed(false)
         , m_useExtendedConnections(useExtendedConnections)
 {
+  // 根据 address 设值 provider 的属性
   setProperty(PROPERTY_HOST, m_address.host);
   setProperty(PROPERTY_PORT, oatpp::utils::conversion::int32ToStr(m_address.port));
   m_serverHandle = instantiateServer();
@@ -250,14 +253,14 @@ oatpp::v_io_handle ConnectionProvider::instantiateServer(){
   hints.ai_socktype = SOCK_STREAM;
   hints.ai_protocol = 0;
   hints.ai_flags = AI_PASSIVE;
-
+  // 协议族
   switch(m_address.family) {
     case Address::IP_4: hints.ai_family = AF_INET; break;
     case Address::IP_6: hints.ai_family = AF_INET6; break;
     default:
       hints.ai_family = AF_UNSPEC;
   }
-
+  // 端口号
   auto portStr = oatpp::utils::conversion::int32ToStr(m_address.port);
 
   ret = getaddrinfo(m_address.host->c_str(), portStr->c_str(), &hints, &result);
@@ -265,7 +268,8 @@ oatpp::v_io_handle ConnectionProvider::instantiateServer(){
     OATPP_LOGE("[oatpp::network::tcp::server::ConnectionProvider::instantiateServer()]", "Error. Call to getaddrinfo() failed with result=%d: %s", ret, strerror(errno));
     throw std::runtime_error("[oatpp::network::tcp::server::ConnectionProvider::instantiateServer()]: Error. Call to getaddrinfo() failed.");
   }
-
+  // 在当前主机上寻找可用的网络地址, 创建一个套接字并绑定到这个地址上,
+  // 然后将套接字设为监听模式, 等待客户端连接
   struct addrinfo* currResult = result;
   while(currResult != nullptr) {
 
@@ -304,6 +308,7 @@ oatpp::v_io_handle ConnectionProvider::instantiateServer(){
 
   fcntl(serverHandle, F_SETFL, O_NONBLOCK);
 
+  // 绑定后更新端口
   // Update port after binding (typicaly in case of port = 0)
   struct ::sockaddr_in s_in;
   ::memset(&s_in, 0, sizeof(s_in));
@@ -311,7 +316,7 @@ oatpp::v_io_handle ConnectionProvider::instantiateServer(){
   ::getsockname(serverHandle, (struct sockaddr *)&s_in, &s_in_len);
   setProperty(PROPERTY_PORT, oatpp::utils::conversion::int32ToStr(ntohs(s_in.sin_port)));
 
-  return serverHandle;
+  return serverHandle; // 返回套接字句柄
 
 }
 
@@ -352,7 +357,7 @@ provider::ResourceHandle<data::stream::IOStream> ConnectionProvider::getExtended
   socklen_t clientAddressSize = sizeof(clientAddress);
 
   data::stream::Context::Properties properties;
-
+  // 接收客户端连接
   oatpp::v_io_handle handle = accept(m_serverHandle, (struct sockaddr*) &clientAddress, &clientAddressSize);
 
   if(!oatpp::isValidIOHandle(handle)) {
