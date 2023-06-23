@@ -45,7 +45,8 @@ private:
   http::Headers m_headers;
   std::shared_ptr<oatpp::data::stream::InputStream> m_bodyStream;
   
-  /*
+  /**
+   * 请求应该预先配置默认 BodyDecoder
    * Request should be preconfigured with default BodyDecoder.
    * Custom BodyDecoder can be set on demand
    */
@@ -200,6 +201,7 @@ public:
   oatpp::String getPathVariable(const oatpp::data::share::StringKeyLabel& name) const;
 
   /**
+   * 根据路径模式获得路径尾
    * Get path tail according to path-pattern
    * Ex. given request path="/hello/path/tail" for path-pattern="/hello/\*"
    * tail == "path/tail"

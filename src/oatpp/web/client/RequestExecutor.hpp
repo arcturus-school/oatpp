@@ -34,6 +34,7 @@
 namespace oatpp { namespace web { namespace client {
 
 /**
+ * 负责发起远程请求
  * Abstract RequestExecutor.
  * RequestExecutor is class responsible for making remote requests.
  */
@@ -148,7 +149,7 @@ public:
   };
 
 private:
-  std::shared_ptr<RetryPolicy> m_retryPolicy;
+  std::shared_ptr<RetryPolicy> m_retryPolicy; // 重传政策
 public:
 
   /**
@@ -181,6 +182,7 @@ public:
   virtual void invalidateConnection(const std::shared_ptr<ConnectionHandle>& connectionHandle) = 0;
 
   /**
+   * 执行一次请求, 不需要重试
    * Execute request once without any retries.
    * @param method - method ex: ["GET", "POST", "PUT", etc.].
    * @param path - path to resource.
@@ -212,6 +214,7 @@ public:
                    const std::shared_ptr<ConnectionHandle>& connectionHandle) = 0;
 
   /**
+   * 执行请求时考虑重试策略
    * Execute request taking into account retry policy.
    * @param method - method ex: ["GET", "POST", "PUT", etc.].
    * @param path - path to resource.

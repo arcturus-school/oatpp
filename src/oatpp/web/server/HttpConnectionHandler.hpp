@@ -86,6 +86,7 @@ public:
   static std::shared_ptr<HttpConnectionHandler> createShared(const std::shared_ptr<HttpRouter>& router);
 
   /**
+   * 设置所有请求的根错误处理程序
    * Set root error handler for all requests coming through this Connection Handler.
    * All unhandled errors will be handled by this error handler.
    * @param errorHandler - &id:oatpp::web::server::handler::ErrorHandler;.

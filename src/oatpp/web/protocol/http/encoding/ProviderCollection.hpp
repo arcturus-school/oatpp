@@ -33,6 +33,7 @@
 namespace oatpp { namespace web { namespace protocol { namespace http { namespace encoding {
 
 /**
+ * EncoderProvider 集合
  * Collection of &id:oatpp::web::protocol::http::encoding::EncoderProvider;.
  */
 class ProviderCollection {

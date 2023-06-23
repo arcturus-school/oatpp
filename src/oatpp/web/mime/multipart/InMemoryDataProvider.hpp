@@ -41,6 +41,7 @@ public:
 };
 
 /**
+ * 创建内存中的部分读取器
  * Create in-memory part reader.
  * @param maxDataSize - max-allowed size of the data. Use `-1` for infinity.
  * @return

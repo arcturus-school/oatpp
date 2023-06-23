@@ -31,6 +31,7 @@
 namespace oatpp { namespace web { namespace mime { namespace multipart {
 
 /**
+ * 保存 Multipart 的列表
  * Structure that holds Multipart parts in the `std::list`.
  */
 class PartList : public Multipart {

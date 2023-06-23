@@ -33,6 +33,7 @@
 namespace oatpp { namespace web { namespace protocol { namespace http { namespace incoming {
 
 /**
+ * 从流中读取传入请求的 http 头
  * Helper class to read http headers of incoming request from stream.
  */
 class RequestHeadersReader {
@@ -92,6 +93,7 @@ public:
   {}
 
   /**
+   * 从流中读取并解析 http 报头
    * Read and parse http headers from stream.
    * @param stream - &id:oatpp::data::stream::InputStreamBufferedProxy;.
    * @param error - out parameter &id:oatpp::web::protocol::ProtocolError::Info;.

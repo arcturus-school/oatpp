@@ -36,7 +36,7 @@ namespace oatpp { namespace web { namespace protocol { namespace http { namespac
  */
 class CommunicationUtils {
 public:
-
+  // 连接状态
   enum class ConnectionState : int {
     ALIVE = 0, // Continue processing connection.
     DELEGATED = 1, // Stop current connection processing as connection was delegated to other processor.
@@ -47,6 +47,7 @@ public:
 public:
 
   /**
+   * Http 是否保持连接
    * Consider keep connection alive taking into account request headers, response headers and protocol version.<br>
    * Corresponding header will be set to response if not existed before. <br>
    * @param request - `std::shared_ptr` to &id:oatpp::web::protocol::http::incoming::Request;

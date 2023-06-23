@@ -78,7 +78,7 @@ std::shared_ptr<HttpConnectionHandler> HttpConnectionHandler::createShared(const
 void HttpConnectionHandler::setErrorHandler(const std::shared_ptr<handler::ErrorHandler>& errorHandler){
   m_components->errorHandler = errorHandler;
   if(!m_components->errorHandler) {
-    m_components->errorHandler = handler::DefaultErrorHandler::createShared();
+    m_components->errorHandler = handler::DefaultErrorHandler::createShared(); // 如果 errorHandler 为空则使用默认错误处理程序
   }
 }
 

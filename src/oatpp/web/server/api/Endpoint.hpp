@@ -47,6 +47,7 @@ public:
 public:
 
   /**
+   * 存储 API 文档信息
    * Info holds API documentation information about endpoint
    */
   class Info : public oatpp::base::Countable {
@@ -63,15 +64,15 @@ public:
       oatpp::String name;
       oatpp::data::mapping::type::Type* type;
 
-      oatpp::String description;
-      oatpp::Boolean required = true;
-      oatpp::Boolean deprecated = false;
-      oatpp::Boolean allowEmptyValue;
-      std::list<std::pair<oatpp::String, oatpp::Any>> examples;
+      oatpp::String description; // 参数描述
+      oatpp::Boolean required = true; // 参数是否必须
+      oatpp::Boolean deprecated = false; // 是否弃用
+      oatpp::Boolean allowEmptyValue; // 是否允许空值
+      std::list<std::pair<oatpp::String, oatpp::Any>> examples; // 例子
 
       Param& addExample(const oatpp::String& title, const oatpp::Any& example) {
         examples.push_back({title, example});
-        return *this;
+        return *this; // 实现链式调用(p.addExample(...).addExample(...)...)
       }
 
     };
@@ -82,7 +83,7 @@ public:
     class Params {
     private:
       std::list<oatpp::String> m_order;
-      std::unordered_map<oatpp::String, Param> m_params;
+      std::unordered_map<oatpp::String, Param> m_params; // 参数列表
     public:
 
       const std::list<oatpp::String>& getOrder() const;

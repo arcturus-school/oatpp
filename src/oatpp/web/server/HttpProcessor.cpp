@@ -80,7 +80,7 @@ HttpProcessor::ProcessingResources::ProcessingResources(const std::shared_ptr<Co
   , headersReader(&headersInBuffer, components->config->headersReaderChunkSize, components->config->headersReaderMaxSize)
   , inStream(data::stream::InputStreamBufferedProxy::createShared(connection.object, std::make_shared<std::string>(data::buffer::IOBuffer::BUFFER_SIZE, 0)))
 {}
-
+// 预请求处理
 std::shared_ptr<protocol::http::outgoing::Response>
 HttpProcessor::processNextRequest(ProcessingResources& resources,
                                   const std::shared_ptr<protocol::http::incoming::Request>& request,
@@ -90,7 +90,7 @@ HttpProcessor::processNextRequest(ProcessingResources& resources,
   std::shared_ptr<protocol::http::outgoing::Response> response;
 
   try{
-
+    // 遍历所有请求拦截器
     for(auto& interceptor : resources.components->requestInterceptors) {
       response = interceptor->intercept(request);
       if(response) {
@@ -124,7 +124,7 @@ HttpProcessor::processNextRequest(ProcessingResources& resources,
   return response;
 
 }
-
+// 响应处理
 HttpProcessor::ConnectionState HttpProcessor::processNextRequest(ProcessingResources& resources) {
 
   oatpp::web::protocol::http::HttpError::Info error;
@@ -154,7 +154,7 @@ HttpProcessor::ConnectionState HttpProcessor::processNextRequest(ProcessingResou
     response = processNextRequest(resources, request, connectionState);
 
     try {
-
+      // 遍历所有响应拦截器
       for (auto& interceptor : resources.components->responseInterceptors) {
         response = interceptor->intercept(request, response);
         if (!response) {

@@ -31,6 +31,7 @@
 namespace oatpp { namespace web { namespace protocol { namespace http { namespace encoding {
 
 /**
+ * 分块编码
  * Chunked-encoding buffer processor. &id:oatpp::data::buffer::Processor;.
  */
 class EncoderChunked : public data::buffer::Processor {
@@ -61,6 +62,7 @@ public:
 };
 
 /**
+ * 分块解码
  * Chunked-decoding buffer processor. &id:oatpp::data::buffer::Processor;.
  */
 class DecoderChunked : public data::buffer::Processor {

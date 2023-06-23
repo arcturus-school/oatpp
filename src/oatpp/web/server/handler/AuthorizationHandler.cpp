@@ -59,7 +59,7 @@ oatpp::String AuthorizationHandler::getRealm() {
 BasicAuthorizationHandler::BasicAuthorizationHandler(const oatpp::String& realm)
   : AuthorizationHandler("Basic", realm)
 {}
-
+// 账号密码鉴权
 std::shared_ptr<handler::AuthorizationObject> BasicAuthorizationHandler::handleAuthorization(const oatpp::String &header) {
 
   if(header && header->size() > 6 && utils::String::compare(header->data(), 6, "Basic ", 6) == 0) {
@@ -105,7 +105,7 @@ std::shared_ptr<AuthorizationObject> BasicAuthorizationHandler::authorize(const 
 BearerAuthorizationHandler::BearerAuthorizationHandler(const oatpp::String& realm)
   : AuthorizationHandler("Bearer", realm)
 {}
-
+// 使用 token 鉴权
 std::shared_ptr<AuthorizationObject> BearerAuthorizationHandler::handleAuthorization(const oatpp::String &header) {
 
   if(header && header->size() > 7 && utils::String::compare(header->data(), 7, "Bearer ", 7) == 0) {

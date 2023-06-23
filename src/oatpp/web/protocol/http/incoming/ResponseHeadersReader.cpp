@@ -36,7 +36,7 @@ v_io_size ResponseHeadersReader::readHeadersSectionIterative(ReadHeadersIteratio
 {
 
   v_buff_size desiredToRead = m_buffer.getSize();
-  if(iteration.progress + desiredToRead > m_maxHeadersSize) {
+  if(iteration.progress/* 读取进度 */ + desiredToRead > m_maxHeadersSize) {
     desiredToRead = m_maxHeadersSize - iteration.progress;
     if(desiredToRead <= 0) {
       return -1;
@@ -52,7 +52,7 @@ v_io_size ResponseHeadersReader::readHeadersSectionIterative(ReadHeadersIteratio
     for(v_buff_size i = 0; i < res; i ++) {
       iteration.accumulator <<= 8;
       iteration.accumulator |= bufferData[i];
-      if(iteration.accumulator == SECTION_END) {
+      if(iteration.accumulator == SECTION_END/* 若读取到报文结束 */) {
         result.bufferPosStart = i + 1;
         result.bufferPosEnd = res;
         iteration.done = true;
@@ -94,7 +94,7 @@ ResponseHeadersReader::Result ResponseHeadersReader::readHeaders(const std::shar
   }
 
   if(error.ioStatus > 0) {
-    auto headersText = buffer.toString();
+    auto headersText = buffer.toString(); // 读取 headers
     oatpp::parser::Caret caret (headersText);
     http::Status status;
     http::Parser::parseResponseStartingLine(result.startingLine, headersText.getPtr(), caret, status);

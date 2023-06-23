@@ -42,6 +42,7 @@
 namespace oatpp { namespace web { namespace server { namespace api {
 
 /**
+ * endpoints 的实现和管理
  * Class responsible for implementation and management of endpoints.<br>
  * For details see [ApiController](https://oatpp.io/docs/components/api-controller/).
  */
@@ -214,7 +215,7 @@ protected:
             (T::*MethodAsync)(const std::shared_ptr<IncomingRequest>&);
 
   private:
-
+    // 错误处理(协程)
     class ErrorHandlingCoroutine : public oatpp::async::CoroutineWithResult<ErrorHandlingCoroutine, const std::shared_ptr<OutgoingResponse>&> {
     private:
       Handler* m_handler;

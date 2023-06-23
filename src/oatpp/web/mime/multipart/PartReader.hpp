@@ -42,6 +42,7 @@ public:
   virtual ~PartReader() = default;
 
   /**
+   * 在解析新的标头和创建对象时调用
    * Called when new part headers are parsed and part object is created.
    * @param part
    */

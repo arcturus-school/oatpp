@@ -32,6 +32,7 @@
 namespace oatpp { namespace web { namespace server { namespace interceptor {
 
 /**
+ * 响应拦截器
  * ResponseInterceptor.
  */
 class ResponseInterceptor {

@@ -31,6 +31,7 @@
 namespace oatpp { namespace web { namespace protocol { namespace http { namespace incoming {
 
 /**
+ * 从流中读取 response 的 http 报头
  * Helper class to read http headers of incoming response from stream.
  */
 class ResponseHeadersReader {
@@ -40,6 +41,7 @@ public:
    */
   typedef oatpp::async::Action Action;
 private:
+  // Http 报文块结束
   static constexpr v_uint32 SECTION_END = ('\r' << 24) | ('\n' << 16) | ('\r' << 8) | ('\n');
 public:
 

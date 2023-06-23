@@ -35,6 +35,7 @@
 namespace oatpp { namespace web { namespace url { namespace mapping {
 
 /**
+ * path --> route(such as /user --> route)
  * Class responsible to map "Path" to "Route" by "Path-Pattern".
  * @tparam Endpoint - endpoint of the route.
  */
@@ -43,6 +44,7 @@ class Router : public base::Countable {
 private:
 
   /**
+   * (pattern, endpoint) 二元组
    * Pair &id:oatpp::web::url::mapping::Pattern; to Endpoint.
    */
   typedef std::pair<std::shared_ptr<Pattern>, Endpoint> Pair;
@@ -128,6 +130,7 @@ public:
   }
 
   /**
+   * 解析路径到相应 endpoint
    * Resolve path to corresponding endpoint.
    * @param path
    * @return - &id:Router::Route;.
@@ -137,7 +140,7 @@ public:
     for(auto& pair : m_endpointsByPattern) {
       Pattern::MatchMap matchMap;
       if(pair.first->match(path, matchMap)) {
-        return Route(pair.second, std::move(matchMap));
+        return Route(pair.second/* endpoint */, std::move(matchMap));
       }
     }
 

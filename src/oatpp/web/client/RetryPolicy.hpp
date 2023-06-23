@@ -32,6 +32,7 @@
 namespace oatpp { namespace web { namespace client {
 
 /**
+ * 控制重传
  * Class to control retries in RequestExecutor.
  */
 class RetryPolicy {
@@ -43,6 +44,7 @@ public:
   struct Context {
 
     /**
+     * 尝试重传次数
      * Attempt number.
      */
     v_int64 attempt = 0;
@@ -56,6 +58,7 @@ public:
   virtual ~RetryPolicy() = default;
 
   /**
+   * 检查上下文是否有资格重试
    * Check if the context is eligible to retry.
    * @param context - &l:RetryPolicy::Context ;.
    * @return - `true` - to retry. `false` - do NOT retry.
@@ -63,6 +66,7 @@ public:
   virtual bool canRetry(const Context& context) = 0;
 
   /**
+   * 检查客户端是否应该重试服务器给出的响应
    * Check whether the client should retry for a given response from the server.
    * @param responseStatusCode - HTTP status code of the response.
    * @param context - &l:RetryPolicy::Context ;.
@@ -71,6 +75,7 @@ public:
   virtual bool retryOnResponse(v_int32 responseStatusCode, const Context& context) = 0;
 
   /**
+   * 在下一次尝试之前, 客户端应该等待多少时间
    * How much client should wait before the next attempt?
    * @param context - &l:RetryPolicy::Context ;.
    * @return - delay in microseconds.

@@ -115,6 +115,7 @@ public:
                                                      const std::shared_ptr<data::stream::IOStream>& connection) const = 0;
 
   /**
+   * 读取 body 流并解码为 string
    * Read body stream and decode it to string.
    * @param headers - Headers map. &id:oatpp::web::protocol::http::Headers;.
    * @param bodyStream - pointer to &id:oatpp::data::stream::InputStream;.
@@ -131,6 +132,7 @@ public:
   }
 
   /**
+   * 读取体流, 解码并将其反序列化为 DTO 对象
    * Read body stream, decode, and deserialize it as DTO Object (see [Data Transfer Object (DTO)](https://oatpp.io/docs/components/dto/)).
    * @tparam Wrapper - ObjectWrapper type.
    * @param headers - Headers map. &id:oatpp::web::protocol::http::Headers;.

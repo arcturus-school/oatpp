@@ -60,7 +60,7 @@ std::shared_ptr<RequestExecutor::Response> RequestExecutor::execute(
   const std::shared_ptr<ConnectionHandle>& connectionHandle
 ) {
 
-  if(!m_retryPolicy) {
+  if(!m_retryPolicy/* 不存在重传次数 */) {
 
     auto ch = connectionHandle;
     if (!ch) {

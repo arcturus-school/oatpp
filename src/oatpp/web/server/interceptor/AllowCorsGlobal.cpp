@@ -25,7 +25,7 @@
 #include "AllowCorsGlobal.hpp"
 
 namespace oatpp { namespace web { namespace server { namespace interceptor {
-
+// 跨域预检请求(options), 处理成功后返回状态码 204
 std::shared_ptr<protocol::http::outgoing::Response> AllowOptionsGlobal::intercept(const std::shared_ptr<IncomingRequest> &request) {
 
   const auto &line = request->getStartingLine();
@@ -34,7 +34,7 @@ std::shared_ptr<protocol::http::outgoing::Response> AllowOptionsGlobal::intercep
     return OutgoingResponse::createShared(protocol::http::Status::CODE_204, nullptr);
   }
 
-  return nullptr;
+  return nullptr; // 不做处理
 
 }
 
@@ -51,10 +51,11 @@ AllowCorsGlobal::AllowCorsGlobal(const oatpp::String &origin,
 std::shared_ptr<protocol::http::outgoing::Response> AllowCorsGlobal::intercept(const std::shared_ptr<IncomingRequest>& request,
                                                                                const std::shared_ptr<OutgoingResponse>& response)
 {
-  response->putHeaderIfNotExists(protocol::http::Header::CORS_ORIGIN, m_origin);
-  response->putHeaderIfNotExists(protocol::http::Header::CORS_METHODS, m_methods);
-  response->putHeaderIfNotExists(protocol::http::Header::CORS_HEADERS, m_headers);
-  response->putHeaderIfNotExists(protocol::http::Header::CORS_MAX_AGE, m_maxAge);
+  // 设置响应头
+  response->putHeaderIfNotExists(protocol::http::Header::CORS_ORIGIN, m_origin); // Access-Control-Allow-Origin
+  response->putHeaderIfNotExists(protocol::http::Header::CORS_METHODS, m_methods); // Access-Control-Allow-Methods
+  response->putHeaderIfNotExists(protocol::http::Header::CORS_HEADERS, m_headers); // Access-Control-Allow-Headers
+  response->putHeaderIfNotExists(protocol::http::Header::CORS_MAX_AGE, m_maxAge); // Access-Control-Max-Age
   return response;
 }
 

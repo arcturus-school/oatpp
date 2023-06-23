@@ -45,7 +45,7 @@ protected:
   std::shared_ptr<ClientConnectionProvider> m_connectionProvider;
   std::shared_ptr<const BodyDecoder> m_bodyDecoder;
 public:
-
+  // 代理模式
   class ConnectionProxy : public data::stream::IOStream {
   private:
   provider::ResourceHandle<data::stream::IOStream> m_connectionHandle;

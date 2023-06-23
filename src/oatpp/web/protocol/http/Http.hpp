@@ -51,6 +51,7 @@ typedef oatpp::data::share::LazyStringMultimap<oatpp::data::share::StringKeyLabe
 typedef oatpp::data::share::LazyStringMultimap<oatpp::data::share::StringKeyLabel> QueryParams;
 
 /**
+ * Http 状态码
  * Http status.
  */
 class Status{
@@ -466,6 +467,7 @@ public:
 if(!(COND)) { throw oatpp::web::protocol::http::HttpError(STATUS, MESSAGE); }
 
 /**
+ * Http 头
  * Collection of HTTP Header constants.
  */
 class Header {
@@ -582,6 +584,7 @@ public:
 };
 
 /**
+ * HTTP 请求起始行
  * Struct representing HTTP request starting line.
  * Example request starting line: `GET /path/to/resource/ HTTP/1.1`.
  */
@@ -603,6 +606,7 @@ struct RequestStartingLine {
 };
 
 /**
+ * 响应起始行
  * Struct representing HTTP response starting line.
  * Example response starting line: `HTTP/1.1 200 OK`.
  */
@@ -624,6 +628,7 @@ struct ResponseStartingLine {
 };
 
 /**
+ * Http header 内数据
  * Data contained in the value of one header.
  */
 struct HeaderValueData {

@@ -81,7 +81,7 @@ ApiClient::StringTemplate ApiClient::parsePathTemplate(const oatpp::String& name
   return t;
 
 }
-
+// 由 params 和 query 格式化 url
 oatpp::String ApiClient::formatPath(const StringTemplate& pathTemplate,
                                     const std::unordered_map<oatpp::String, oatpp::String>& pathParams,
                                     const std::unordered_map<oatpp::String, oatpp::String>& queryParams)
@@ -110,7 +110,7 @@ oatpp::String ApiClient::formatPath(const StringTemplate& pathTemplate,
   return stream.toString();
 
 }
-
+// 发送 http 请求
 std::shared_ptr<ApiClient::Response> ApiClient::executeRequest(const oatpp::String& method,
                                                                const StringTemplate& pathTemplate,
                                                                const Headers& headers,

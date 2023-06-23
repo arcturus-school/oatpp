@@ -34,6 +34,7 @@
 namespace oatpp { namespace web { namespace mime { namespace multipart {
 
 /**
+ * 有状态的解析
  * Stateful parser of multipart-data stream.
  * Parser designed to work with stream-like data in order to store minimum data in the memory.
  */
@@ -209,6 +210,7 @@ public:
                  const std::shared_ptr<AsyncListener>& asyncListener);
 
   /**
+   * 解析下一块数据
    * Parse next chunk of bytes.
    * @param inlineData - inline data.
    * @param action - Async Action in case Async Listener was provided in constructor.
@@ -216,6 +218,7 @@ public:
   void parseNext(data::buffer::InlineWriteData& inlineData, async::Action& action);
 
   /**
+   * 判断是否解析完成
    * Check if parser done parsing data.
    * @return - `true` or `false`.
    */

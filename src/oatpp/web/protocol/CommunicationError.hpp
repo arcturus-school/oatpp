@@ -30,6 +30,7 @@
 namespace oatpp { namespace web { namespace protocol {
 
 /**
+ * 通信错误
  * Communication Error
  */
 class CommunicationError : public std::runtime_error {
@@ -60,6 +61,7 @@ public:
 };
 
 /**
+ * 协议错误
  * Protocol Error Info.
  */
 template<class Status>

@@ -32,6 +32,7 @@
 namespace oatpp { namespace web { namespace server {
 
 /**
+ * 请求处理器
  * HTTP request handler.
  */
 class HttpRequestHandler {

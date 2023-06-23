@@ -32,6 +32,12 @@ namespace oatpp { namespace web { namespace mime { namespace multipart {
 
 /**
  * One part of the multipart.
+ * 在 multipart/form-data 格式中, 数据被分成多个部分(Part),
+ * 每个部分都有自己的头部(Header)和正文(Body), 
+ * 不同部分之间通过分隔符(Boundary)进行分割,
+ * 每个 Part 的头部包含了该部分数据的描述信息,
+ * 例如该部分数据的名称、类型、长度等, 
+ * 正文部分则包含了具体的数据内容, 可以是文本, 二进制数据或者文件
  */
 class Part {
 public:
